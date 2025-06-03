@@ -2,7 +2,7 @@ import React from "react";
 import UseTitleName from "../../components/UseTitleName";
 
 function News() {
-  UseTitleName("OCU Engineering Club | News")
+  UseTitleName("News | OCU Engineering Club")
 
   return (
     <h1>Welcome to The News Page.</h1>

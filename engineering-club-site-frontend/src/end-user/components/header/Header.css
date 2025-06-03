@@ -23,6 +23,13 @@
   border: 2px solid #ffffff;
 }
 
+@media (max-width: 991.98px) {
+  .dropdown-menu {
+    border: 0px;
+    padding-top: 0px;
+  }
+}
+
 .dropdown-item:hover {
   background-color: transparent !important;
 }

@@ -42,19 +42,19 @@ const Footer = () => {
                   drop="up"
                   className="mx-5 caret-down"
                 >
-                  <NavDropdown.Item as={NavLink} to="/pumps">Pumps</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item as={NavLink} to="/ship-constructions">
+                  <NavDropdown.Item as={NavLink} to="/article/pumps">Pumps</NavDropdown.Item>
+                  <NavDropdown.Divider className="d-none d-lg-block" />
+                  <NavDropdown.Item as={NavLink} to="/article/ship-constructions">
                     Ship Constructions
                   </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item as={NavLink} to="/ship-stability">
+                  <NavDropdown.Divider className="d-none d-lg-block" />
+                  <NavDropdown.Item as={NavLink} to="/article/ship-stability">
                     Ship Stability
                   </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item as={NavLink} to="/ship-type">Ship Type</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item as={NavLink} to="/other">Other</NavDropdown.Item>
+                  <NavDropdown.Divider className="d-none d-lg-block" />
+                  <NavDropdown.Item as={NavLink} to="/article/ship-type">Ship Type</NavDropdown.Item>
+                  <NavDropdown.Divider className="d-none d-lg-block" />
+                  <NavDropdown.Item as={NavLink} to="/article/other">Other</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </Navbar>

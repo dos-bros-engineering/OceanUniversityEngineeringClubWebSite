@@ -46,32 +46,32 @@ const Header = () => {
                 }
                 id="navbarScrollingDropdown"
                 className={`ms-5 caret-down ${
-                  location.pathname === "/pumps" ||
-                  location.pathname === "/ship-constructions" ||
-                  location.pathname === "/ship-stability" ||
-                  location.pathname === "/ship-type" ||
-                  location.pathname === "/other"
+                  location.pathname === "/article/pumps" ||
+                  location.pathname === "/article/ship-constructions" ||
+                  location.pathname === "/article/ship-stability" ||
+                  location.pathname === "/article/ship-type" ||
+                  location.pathname === "/article/other"
                     ? "active"
                     : ""
                 }`}
               >
-                <NavDropdown.Item as={NavLink} to="/pumps">
+                <NavDropdown.Item as={NavLink} to="/article/pumps">
                   Pumps
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={NavLink} to="/ship-constructions">
+                <NavDropdown.Divider className="d-none d-lg-block" />
+                <NavDropdown.Item as={NavLink} to="/article/ship-constructions">
                   Ship Constructions
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={NavLink} to="/ship-stability">
+                <NavDropdown.Divider className="d-none d-lg-block" />
+                <NavDropdown.Item as={NavLink} to="/article/ship-stability">
                   Ship Stability
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={NavLink} to="/ship-type">
+                <NavDropdown.Divider className="d-none d-lg-block" />
+                <NavDropdown.Item as={NavLink} to="/article/ship-type">
                   Ship Type
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={NavLink} to="/other">
+                <NavDropdown.Divider className="d-none d-lg-block" />
+                <NavDropdown.Item as={NavLink} to="/article/other">
                   Other
                 </NavDropdown.Item>
               </NavDropdown>
