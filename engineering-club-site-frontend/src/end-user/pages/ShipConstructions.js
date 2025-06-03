@@ -2,7 +2,7 @@ import React from "react";
 import UseTitleName from "../../components/UseTitleName";
 
 function ShipConstructions() {
-  UseTitleName("OCU Engineering Club | Ship Constructions")
+  UseTitleName("Ship Constructions | OCU Engineering Club")
 
   return (
     <h1>Welcome to The Ship Constructions Page.</h1>

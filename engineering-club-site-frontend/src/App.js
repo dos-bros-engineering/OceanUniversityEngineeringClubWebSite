@@ -12,9 +12,10 @@ import ShipConstructions from "./end-user/pages/ShipConstructions";
 import ShipStability from "./end-user/pages/ShipStability";
 import ShipType from "./end-user/pages/ShipType";
 import Other from "./end-user/pages/Other";
+import NotFound from "./end-user/pages/NotFound";
 
 // Define page groups by CSS Class style
-const enduser = ["/", "/news", "/pumps", "/ship-constructions", "/ship-stability", "/ship-type", "/other"];
+const enduser = ["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other"];
 const admin = [];
 const superadmin = [];
 
@@ -23,6 +24,7 @@ function getClassStyle(pathname) {
   if (enduser.includes(pathname)) return "Enduser-App";
   if (admin.includes(pathname)) return "Admin-App";
   if (superadmin.includes(pathname)) return "Superadmin-App";
+  return "Enduser-App";
 }
 
 function App() {
@@ -33,7 +35,7 @@ function App() {
       {/* Header Area */}
       <Routes>
         {/* Enduser Header */}
-        {["/", "/news", "/pumps", "/ship-constructions", "/ship-stability", "/ship-type", "/other"].map((path) => (
+        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other", "*"].map((path) => (
           <Route key={path} path={path} element={<Header />} />
         ))}
       </Routes>
@@ -44,18 +46,21 @@ function App() {
           {/* Enduser Body Content */}
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
-          <Route path="/pumps" element={<Pumps />} />
-          <Route path="/ship-constructions" element={<ShipConstructions />} />
-          <Route path="/ship-stability" element={<ShipStability />} />
-          <Route path="/ship-type" element={<ShipType />} />
-          <Route path="/other" element={<Other />} />
+          <Route path="/article/pumps" element={<Pumps />} />
+          <Route path="/article/ship-constructions" element={<ShipConstructions />} />
+          <Route path="/article/ship-stability" element={<ShipStability />} />
+          <Route path="/article/ship-type" element={<ShipType />} />
+          <Route path="/article/other" element={<Other />} />
+
+          {/* 404 Not Found */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
 
       {/* Footer Area */}
       <Routes>
         {/* Enduser Footer */}
-        {["/", "/news", "/pumps", "/ship-constructions", "/ship-stability", "/ship-type", "/other"].map((path) => (
+        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other", "*"].map((path) => (
           <Route key={path} path={path} element={<Footer />} />
         ))}
       </Routes>
