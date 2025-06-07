@@ -13,3 +13,15 @@
   background-color: #1b3754;
   transform: scale(1.02);
 }
+
+/* Pagination Buttons */
+.btn-light:hover{
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.btn-light.active{
+  background-color: #f3777b;
+  color: #ffffff;
+  border-color: #f3777b;
+}

@@ -11,7 +11,7 @@ const PostGrid = ({ posts, category }) => {
         <div className="divider pt-1 bg-white rounded-end"></div>
       </div>
       <div className="my-3">
-        {posts.slice(0, 4).map((post) => (
+        {posts.slice(0, 6).map((post) => (
           <Row
             key={post.id}
             className="border border-white mx-2 mb-3 py-2 rounded post-grid-post"
