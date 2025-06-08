@@ -1,9 +1,9 @@
-//This post grid is used for home page
+//This post grid is used for sidebar
 import { Container, Row } from "react-bootstrap";
 import FormatDate from "../../../components/FormatDate";
 import "./PostGrid.css";
 
-const PostGrid = ({ posts, category }) => {
+const PostGrid3 = ({ posts, category }) => {
   return (
     <Container fluid>
       <div>
@@ -11,22 +11,21 @@ const PostGrid = ({ posts, category }) => {
         <div className="divider pt-1 bg-white rounded-end"></div>
       </div>
       <div className="my-3">
-        {posts.slice(0, 6).map((post) => (
+        {posts.slice(0, 4).map((post) => (
           <Row
             key={post.id}
             className="border border-white mx-2 mb-3 py-2 rounded post-grid-post"
           >
-            <div className="col-lg-4">
+            <div className="col-lg-5">
               <img src={post.img} className="rounded post-grid-img" alt="..." />
             </div>
-            <div className="col-lg-8">
-              <h4 className="mb-0">{post.title}</h4>
+            <div className="col-lg-7">
+              <h5 className="mb-0">{post.title}</h5>
               <p>
                 <span className="bi bi-clock"></span>
                 <span className="ms-1">{FormatDate(post.date)}</span>
               </p>
-              <p className="text-justify my-1">{post.body.length > 150 ? post.body.slice(0, 150) + "..." : post.body}</p>
-              <button type="button" class="btn btn-outline-light btn-sm mt-1">
+              <button type="button" class="btn btn-outline-light btn-sm">
                 <span>Read More</span>
                 <span className="bi bi-arrow-right ms-1"></span>
               </button>
@@ -38,4 +37,4 @@ const PostGrid = ({ posts, category }) => {
   );
 };
 
-export default PostGrid;
+export default PostGrid3;
