@@ -43,7 +43,7 @@ function App() {
       {/* Header Area */}
       <Routes>
         {/* Enduser Header */}
-        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other"].map((path) => (
+        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other", "*"].map((path) => (
           <Route key={path} path={path} element={<Header />} />
         ))}
       </Routes>
@@ -72,7 +72,7 @@ function App() {
       {/* Footer Area */}
       <Routes>
         {/* Enduser Footer */}
-        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other"].map((path) => (
+        {["/", "/news", "/article/pumps", "/article/ship-constructions", "/article/ship-stability", "/article/ship-type", "/article/other", "*"].map((path) => (
           <Route key={path} path={path} element={<Footer />} />
         ))}
       </Routes>

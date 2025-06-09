@@ -9,9 +9,9 @@ function Home() {
 
   return (
     <>
-      <Container fluid className="p-0 m-0" data-aos="fade-up">
+      <Container fluid className="p-0 m-0">
         <Row className="p-0 m-0">
-          <div className="my-3 p-0">
+          <div className="my-3 p-0" data-aos="fade-up">
             <Slider posts={posts} />
           </div>
         </Row>
