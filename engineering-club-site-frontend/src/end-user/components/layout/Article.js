@@ -1,5 +1,4 @@
 // This is a page layout for all article pages
-
 import { Container, Row } from "react-bootstrap";
 import "./Article.css";
 import UseTitleName from "../../../components/UseTitleName";
