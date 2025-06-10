@@ -10,12 +10,15 @@ import { Outlet, NavLink } from "react-router-dom";
 function Article() {
   UseTitleName("Article | OCU Engineering Club");
 
+  // Filter posts by category
+  const articlePosts = posts.filter(post => post.category);
+
   return (
     <>
       <Container fluid className="p-0 m-0">
         <Row className="p-0 m-0">
           <div className="my-3 p-0" data-aos="fade-up">
-            <Slider posts={posts} />
+            <Slider posts={articlePosts} />
           </div>
         </Row>
         <Row className="p-0 m-0 my-4">
