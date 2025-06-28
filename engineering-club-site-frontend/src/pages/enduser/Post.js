@@ -4,6 +4,7 @@ import posts from "../../data/db.json";
 import NotFound from "./NotFound";
 import { Container, Row } from "react-bootstrap";
 import Sidebar from "../../components/enduser/sidebar/Sidebar";
+import Comment from "../../components/enduser/comment/Comment";
 
 const Post = () => {
   const { titleSlug } = useParams();
@@ -25,14 +26,21 @@ const Post = () => {
             {/* Post Layout */}
             <div className="col-lg-8 ps-4" data-aos="fade-up">
               <h2>{post.title}</h2>
-              <div className="mt-1 mb-4 fw-bold">
+              <div className="mt-1 fw-bold">
                 <span className="me-4"><i className="bi bi-clock"></i> {FormatDate(post.date)}</span>
+                <span className="me-4"><i className="bi bi-person-circle"></i> {post.author}</span>
+                {post.category && (<span><i className="bi bi-tags"></i> {post.category}</span>)}
+              </div>
+              <div className="mt-1 mb-4 fw-bold">
                 <span className="me-4"><i className="bi bi-hand-thumbs-up"></i> {post.like}</span>
                 <span className="me-4"><i className="bi bi-hand-thumbs-down"></i> {post.dislike}</span>
-                <span className="me-4"><i className="bi bi-person-circle"></i> {post.author}</span>
+                {post.category && (<span className="me-4"><i className="bi bi-chat-text"></i> {posts.comment.filter((comment) => comment.article_id === post.id).length}</span>)}
+                <span><i className="bi bi-eye"></i> 2000</span>
               </div>
               <img src={post.img} className="rounded w-100" alt="..." />
               <p className="mt-4" style={{ textAlign: "justify", whiteSpace: "pre-wrap" }}>{post.body}</p>
+              {/* Comment Section */}
+              {post.category && <div className="mt-5"><Comment post_id={post.id} /></div>}
             </div>
 
             {/* Sidebar */}

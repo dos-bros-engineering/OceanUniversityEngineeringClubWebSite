@@ -107,5 +107,87 @@
       "like": 200,
       "dislike": 7
     }
+  ],
+  "comment": [
+    {
+      "id": 1,
+      "article_id": 1,
+      "date": "2025-06-22",
+      "name": "Gihan Mendis",
+      "email": "gihanmendis@gmail.com",
+      "comment": "Awesome Content!"
+    },
+    {
+      "id": 2,
+      "article_id": 1,
+      "date": "2025-06-23",
+      "name": "Kusal de Silva",
+      "email": "kusaldesilva@gmail.com",
+      "comment": "Great!"
+    },
+    {
+      "id": 3,
+      "article_id": 1,
+      "date": "2025-06-24",
+      "name": "Ajantha Perera",
+      "email": "ajanthaperera@gmail.com",
+      "comment": "Nice!"
+    },
+    {
+      "id": 4,
+      "article_id": 2,
+      "date": "2025-06-25",
+      "name": "Nimali Fonseka",
+      "email": "nimalifonseka@gmail.com",
+      "comment": "Wow!"
+    },
+    {
+      "id": 5,
+      "article_id": 2,
+      "date": "2025-06-26",
+      "name": "Samantha Jayasinghe",
+      "email": "samanthaj@gmail.com",
+      "comment": "Very informative post."
+    },
+    {
+      "id": 6,
+      "article_id": 3,
+      "date": "2025-06-26",
+      "name": "Ruwan Karunaratne",
+      "email": "ruwank@gmail.com",
+      "comment": "Helpful content, thank you!"
+    },
+    {
+      "id": 7,
+      "article_id": 3,
+      "date": "2025-06-27",
+      "name": "Tharushi Madushanka",
+      "email": "tharushim@gmail.com",
+      "comment": "Really enjoyed this article!"
+    },
+    {
+      "id": 8,
+      "article_id": 3,
+      "date": "2025-06-27",
+      "name": "Dulaj Perera",
+      "email": "dulajp@gmail.com",
+      "comment": "Good work, keep it up."
+    },
+    {
+      "id": 9,
+      "article_id": 4,
+      "date": "2025-06-28",
+      "name": "Manjula Fernando",
+      "email": "manjulafernando@gmail.com",
+      "comment": "Excellent insights!"
+    },
+    {
+      "id": 10,
+      "article_id": 4,
+      "date": "2025-06-28",
+      "name": "Harsha Gunasekara",
+      "email": "harshagunasekara@gmail.com",
+      "comment": "Well written and very clear."
+    }
   ]
 }
