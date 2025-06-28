@@ -42,13 +42,11 @@
 }
 
 /* Slider buttons */
-.bi-arrow-left-short, .bi-arrow-right-short {
+.bi-chevron-left, .bi-chevron-right {
   color: #ffffff;
-  background-color: #000000;
-  border-radius: 10%;
 }
 
-.bi-arrow-left-short:hover, .bi-arrow-right-short:hover {
+.bi-chevron-left:hover, .bi-chevron-right:hover {
   color: #f3777b;
 }
 

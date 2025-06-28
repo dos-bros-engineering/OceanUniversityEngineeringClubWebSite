@@ -59,8 +59,8 @@ const Slider = ({ posts }) => {
           data-bs-slide="prev"
         >
           <span
-            className="bi bi-arrow-left-short"
-            style={{ fontSize: "5rem" }}
+            className="bi bi-chevron-left"
+            style={{ fontSize: "4rem" }}
             aria-hidden="true"
           ></span>
           <span className="visually-hidden">Previous</span>
@@ -72,8 +72,8 @@ const Slider = ({ posts }) => {
           data-bs-slide="next"
         >
           <span
-            className="bi bi-arrow-right-short"
-            style={{ fontSize: "5rem" }}
+            className="bi bi-chevron-right"
+            style={{ fontSize: "4rem" }}
             aria-hidden="true"
           ></span>
           <span className="visually-hidden">Next</span>
