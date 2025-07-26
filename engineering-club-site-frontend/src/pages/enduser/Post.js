@@ -1,27 +1,22 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import FormatDate from "../../utils/FormatDate";
-import { useData } from "../../utils/DataContext";
 import NotFound from "./NotFound";
 import { Container, Row } from "react-bootstrap";
 import Sidebar from "../../components/enduser/sidebar/Sidebar";
 import Comment from "../../components/enduser/comment/Comment";
 import UseTitleName from "../../utils/UseTitleName";
+import { useData } from "../../utils/DataContext";
 
 const Post = () => {
+  const { titleSlug } = useParams();
   const { articles, news, comments } = useData();
 
-  const { titleSlug } = useParams();
-  const location = useLocation();
-  const postId = location.state?.id;
-
   // Check the title to find post
-  const checkPost = articles.find((p) => p.title.toLowerCase().replace(/\s+/g, "-") === titleSlug)
+  const post = articles.find((p) => p.title.toLowerCase().replace(/\s+/g, "-") === titleSlug)
     || news.find((p) => p.title.toLowerCase().replace(/\s+/g, "-") === titleSlug);
 
-  const post = checkPost?.id === postId ? checkPost : null;
-
-  UseTitleName((post?.title) + " | OCU Engineering Club");
-
+  UseTitleName(post?.title + " | OCU Engineering Club");
+  
   return (
     <>
       {post ? (

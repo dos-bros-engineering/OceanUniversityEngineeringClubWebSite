@@ -3,10 +3,10 @@ import { Container, Row } from "react-bootstrap";
 import UseTitleName from "../../utils/UseTitleName";
 import Sidebar from "../../components/enduser/sidebar/Sidebar";
 import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
-import { useData } from "../../utils/DataContext";
 import { useLocation } from "react-router-dom";
 import Search from "../../components/enduser/search/Search";
 import { useEffect, useState } from "react";
+import { useData } from "../../utils/DataContext";
 
 const SearchResults = () => {
   UseTitleName("Search Results | OCU Engineering Club");
@@ -19,30 +19,27 @@ const SearchResults = () => {
   // Filter posts by search result
   useEffect(() => {
     if (!searchResult) {
-      setPostResults([]);
-      return;
-    }
-
-    const lowerSearch = searchResult.toLowerCase().trim();
-
-    let results = [];
-
-    if (["article", "articles"].includes(lowerSearch)) {
-      results = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
-    } else if (lowerSearch === "news") {
-      results = news.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setPostResults([...articles, ...news].sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else {
-      results = [...articles, ...news]
-        .filter((post) =>
-          `${post.title} ${post.category}`
-            .toLowerCase()
-            .includes(lowerSearch)
-        )
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
-    }
+      const lowerSearch = searchResult.toLowerCase().trim();
 
-    setPostResults(results);
-  }, [searchResult, articles, news]);
+      let results = [];
+
+      if (["article", "articles"].includes(lowerSearch)) {
+        results = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+      } else if (lowerSearch === "news") {
+        results = news.sort((a, b) => new Date(b.date) - new Date(a.date));
+      } else {
+        results = [...articles, ...news]
+          .filter((post) =>
+            `${post.title} ${post.category}`.toLowerCase().includes(lowerSearch)
+          )
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
+      }
+
+      setPostResults(results);
+    }
+  }, [searchResult]);
 
   return (
     <>

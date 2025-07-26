@@ -4,6 +4,7 @@ import FormatDate from "../../../utils/FormatDate";
 import "./PostGrid.css";
 import { useNavigate } from "react-router-dom";
 import NoPostFoundAnimation from "../../../utils/animation/NoPostFoundAnimation";
+import PostUrlFormat from "../../../utils/PostUrlFormat";
 
 const PostGrid3 = ({ posts, category }) => {
   const navigate = useNavigate();
@@ -18,9 +19,9 @@ const PostGrid3 = ({ posts, category }) => {
       </h2>
       <div className="my-3">
         {posts.length > 0 ? (
-          posts.slice(0, 4).map((post) => (
+          posts?.slice(0, 4).map((post, index) => (
             <Row
-              key={post.id}
+              key={index}
               className="border border-white mx-2 mb-3 py-2 rounded post-grid-post"
             >
               <div className="col-lg-5">
@@ -40,9 +41,7 @@ const PostGrid3 = ({ posts, category }) => {
                   type="button"
                   class="btn btn-outline-light btn-sm"
                   onClick={() =>
-                    navigate(formatUrlPath(post.category, post.title), {
-                      state: { id: post.id },
-                    })
+                    navigate(PostUrlFormat(post.category, post.title))
                   }
                 >
                   <span>Read More</span>
@@ -62,20 +61,6 @@ const PostGrid3 = ({ posts, category }) => {
       </div>
     </Container>
   );
-
-  // To Format the title and category as Pathname
-  function formatUrlPath(category, title) {
-    if (!category) {
-      return "/news/" + title.toLowerCase().replace(/\s+/g, "-");
-    } else {
-      return (
-        "/article/" +
-        category.toLowerCase().replace(/\s+/g, "-") +
-        "/" +
-        title.toLowerCase().replace(/\s+/g, "-")
-      );
-    }
-  }
 };
 
 export default PostGrid3;

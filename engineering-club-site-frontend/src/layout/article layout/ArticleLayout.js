@@ -3,8 +3,8 @@ import { Container, Row } from "react-bootstrap";
 import "./ArticleLayout.css";
 import Slider from "../../components/enduser/slider/Slider";
 import Sidebar from "../../components/enduser/sidebar/Sidebar";
-import { useData } from "../../utils/DataContext";
 import { Outlet, NavLink } from "react-router-dom";
+import { useData } from "../../utils/DataContext";
 
 const Article = () => {
   const { articles } = useData();
