@@ -15,6 +15,8 @@ const Search = () => {
     navigate("/search-results", {
       state: { searchResult: searchTerm },
     });
+
+    setSearchTerm("");
   };
 
   return (

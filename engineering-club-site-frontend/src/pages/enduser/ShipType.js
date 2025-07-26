@@ -1,6 +1,6 @@
 import UseTitleName from "../../utils/UseTitleName";
-import { useData } from "../../utils/DataContext";
 import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
+import { useData } from "../../utils/DataContext";
 
 const ShipType = () => {
   UseTitleName("Ship Type | OCU Engineering Club");

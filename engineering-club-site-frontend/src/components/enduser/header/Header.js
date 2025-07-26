@@ -18,7 +18,7 @@ const Header = () => {
             <img src={logo} className="navbar-App-logo me-lg-5" alt="logo" />
           </Navbar.Brand>
           <Navbar.Toggle className="nav-toggle">
-            <i class="bi bi-list fs-1 nav-toggle-icon"></i>
+            <i className="bi bi-list fs-1 nav-toggle-icon"></i>
           </Navbar.Toggle>
           <Navbar.Collapse>
             <Nav className="my-2 my-lg-0 custom-nav mx-auto">

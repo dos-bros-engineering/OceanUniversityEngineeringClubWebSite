@@ -5,6 +5,7 @@ import "./PostGrid.css";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NoPostFoundAnimation from "../../../utils/animation/NoPostFoundAnimation";
+import PostUrlFormat from "../../../utils/PostUrlFormat";
 
 const PostGrid2 = ({ posts }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,9 +22,9 @@ const PostGrid2 = ({ posts }) => {
     <Container fluid>
       <div>
         {posts.length > 0 ? (
-          posts.slice(firstIndex, lastIndex).map((post) => (
+          posts?.slice(firstIndex, lastIndex).map((post, index) => (
             <Row
-              key={post.id}
+              key={index}
               className="border border-white mx-2 mb-3 py-2 rounded post-grid-post"
             >
               <div className="col-lg-4">
@@ -48,9 +49,7 @@ const PostGrid2 = ({ posts }) => {
                   type="button"
                   class="btn btn-outline-light btn-sm mt-1"
                   onClick={() =>
-                    navigate(formatUrlPath(post.category, post.title), {
-                      state: { id: post.id },
-                    })
+                    navigate(PostUrlFormat(post.category, post.title))
                   }
                 >
                   <span>Read More</span>
@@ -107,20 +106,6 @@ const PostGrid2 = ({ posts }) => {
       )}
     </Container>
   );
-
-  // To Format the title and category as Pathname
-  function formatUrlPath(category, title) {
-    if (!category) {
-      return "/news/" + title.toLowerCase().replace(/\s+/g, "-");
-    } else {
-      return (
-        "/article/" +
-        category.toLowerCase().replace(/\s+/g, "-") +
-        "/" +
-        title.toLowerCase().replace(/\s+/g, "-")
-      );
-    }
-  }
 
   // Pagination Buttons
   function prePage() {

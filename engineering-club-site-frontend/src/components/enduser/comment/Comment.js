@@ -1,20 +1,24 @@
-import { useData } from "../../../utils/DataContext";
+import ApiRoutes from "../../../api/ApiRoutes";
 import { FormatRelevantTime } from "../../../utils/FormatDate";
+import { useData } from "../../../utils/DataContext";
 import "./Comment.css";
 import { useState } from 'react';
 
 const Comment = ({ post_id }) => {
-  const { comments, setComments } = useData();
+  const { comments, getComment } = useData();
 
   // Get Input Values from Comment Box
   const [commentName, setCommentName] = useState("");
   const [commentEmail, setCommentEmail] = useState("");
   const [commentBody, setCommentBody] = useState("");
 
-  // Add comment to the database
-  const addComment = async () => {
-    const newComment = {
-      id: parseInt(comments.length) + 1,
+  const [successMsg, setSuccessMsg] = useState(false);
+
+  // Add comment
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const comment = {
       article_id: post_id,
       date: new Date(),
       name: commentName,
@@ -22,31 +26,31 @@ const Comment = ({ post_id }) => {
       comment: commentBody,
     };
 
-    const response = await fetch("http://localhost:3001/comment", {
+    fetch(ApiRoutes.COMMENT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newComment),
-    });
+      body: JSON.stringify(comment),
+    })
+      .then(() => {
+        setSuccessMsg(true);
+        getComment();
 
-    if (response.ok) {
-      const saved = await response.json();
-      setComments((prev) => [...prev, saved]);
+        // Clear The Input Fields Values
+        setCommentName("");
+        setCommentEmail("");
+        setCommentBody("");
 
-      // Clear The Input Fields Values
-      setCommentName("");
-      setCommentEmail("");
-      setCommentBody("");
-    } else {
-      console.error("Failed to add comment");
-    }
-  };
-
-  // To Avoid Reloading the Page
-  const handleClick = (e) => {
-    e.preventDefault();
-    addComment();
+        // Hide it
+        setTimeout(() => {
+          setSuccessMsg(false);
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setSuccessMsg(false);
+      });
   };
 
   // Filter comments by relevant post id
@@ -54,6 +58,13 @@ const Comment = ({ post_id }) => {
 
   return (
     <>
+      {/* Display success msg or error msg */}
+      {successMsg && (
+        <div class="alert alert-success" role="alert">
+          Comment added successfully!
+        </div>
+      )}
+
       {/* Comment Box */}
       <div>
         <h4>
@@ -63,7 +74,7 @@ const Comment = ({ post_id }) => {
           </span>
         </h4>
         <div className="mt-3 px-4">
-          <form onSubmit={handleClick}>
+          <form onSubmit={handleSubmit}>
             <div className="row">
               <div class="form-group col-lg-6">
                 <input
@@ -126,15 +137,15 @@ const Comment = ({ post_id }) => {
         </h4>
         {comment.length > 0 ? (
           comment
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            ?.sort((a, b) => new Date(b.date) - new Date(a.date))
             .map((comment) => (
               <div className="mt-2 ms-4" key={comment.id}>
                 <div className="d-inline-block align-top me-3">
                   <div
                     className="d-flex justify-content-center align-items-center rounded-circle text-black fw-semibold bg-white"
                     style={{
-                      width: '40px',
-                      height: '40px',
+                      width: "40px",
+                      height: "40px",
                     }}
                   >
                     {comment.name.charAt(0)}

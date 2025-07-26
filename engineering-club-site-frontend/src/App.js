@@ -15,8 +15,8 @@ import ScrollAnimation from "./utils/ScrollAnimation";
 import ArticleLayout from "./layout/article layout/ArticleLayout";
 import EndUserLayout from "./layout/EndUserLayout";
 import Post from "./pages/enduser/Post";
-import { DataProvider } from "./utils/DataContext";
 import SearchResults from "./pages/enduser/SearchResults";
+import { DataProvider } from "./utils/DataContext";
 
 const App = () => {
   // Scroll Animation
@@ -40,13 +40,19 @@ const App = () => {
                 path="/article/ship-constructions"
                 element={<ShipConstructions />}
               />
-              <Route path="/article/ship-stability" element={<ShipStability />} />
+              <Route
+                path="/article/ship-stability"
+                element={<ShipStability />}
+              />
               <Route path="/article/ship-type" element={<ShipType />} />
               <Route path="/article/other" element={<Other />} />
             </Route>
 
             <Route path="/news/:titleSlug" element={<Post />} />
-            <Route path="/article/:categorySlug/:titleSlug" element={<Post />} />
+            <Route
+              path="/article/:categorySlug/:titleSlug"
+              element={<Post />}
+            />
 
             <Route path="/search-results" element={<SearchResults />} />
 

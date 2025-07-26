@@ -1,7 +1,7 @@
 {
   "article": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Understanding Different Types of Ships",
       "category": "Ship Type",
       "img": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
@@ -11,7 +11,7 @@
       "views": 2020
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Types of Pumps Used in Ships",
       "category": "Pumps",
       "img": "https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=800&q=80",
@@ -21,7 +21,7 @@
       "views": 1500
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "The Science Behind Ship Stability",
       "category": "Ship Stability",
       "img": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80",
@@ -31,7 +31,7 @@
       "views": 2000
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Modern Ship Construction Techniques",
       "category": "Ship Constructions",
       "img": "https://cdn.sanity.io/images/hpm9cfz0/production/3484fc81233e83a7603841ed58c920a80b33c021-1792x1024.webp?w=1792&q=100&auto=format",
@@ -41,7 +41,7 @@
       "views": 1800
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "Emerging Trends in Marine Engineering",
       "category": "Other",
       "img": "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
@@ -53,7 +53,7 @@
   ],
   "news": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Marine Engineering Conference 2025 Announced",
       "img": "https://images.unsplash.com/photo-1497493292307-31c376b6e479?auto=format&fit=crop&w=800&q=80",
       "date": "2025-06-22",
@@ -62,7 +62,7 @@
       "views": 1650
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Sri Lanka Launches New Naval Design Program",
       "img": "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=800&q=80",
       "date": "2025-06-24",
@@ -71,7 +71,7 @@
       "views": 1350
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "First Hybrid Cargo Ship Docks in Colombo",
       "img": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
       "date": "2025-06-19",
@@ -80,7 +80,7 @@
       "views": 1250
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Marine Engineering Students Win Global Award",
       "img": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80",
       "date": "2025-06-17",
@@ -89,7 +89,7 @@
       "views": 950
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "New Research Vessel Commissioned",
       "img": "https://upload.wikimedia.org/wikipedia/commons/0/07/INS_Sandhayak_%28J18%29_during_sea_trials.jpg",
       "date": "2025-06-12",
@@ -100,80 +100,80 @@
   ],
   "comment": [
     {
-      "id": 1,
-      "article_id": 1,
+      "id": "1",
+      "article_id": "1",
       "date": "2025-05-22 10:30:00",
       "name": "Gihan Mendis",
       "email": "gihanmendis@gmail.com",
       "comment": "Awesome Content!"
     },
     {
-      "id": 2,
-      "article_id": 1,
+      "id": "2",
+      "article_id": "1",
       "date": "2025-06-23 10:30:00",
       "name": "Kusal de Silva",
       "email": "kusaldesilva@gmail.com",
       "comment": "Great!"
     },
     {
-      "id": 3,
-      "article_id": 1,
+      "id": "3",
+      "article_id": "1",
       "date": "2025-06-24 10:30:00",
       "name": "Ajantha Perera",
       "email": "ajanthaperera@gmail.com",
       "comment": "Nice!"
     },
     {
-      "id": 4,
-      "article_id": 2,
+      "id": "4",
+      "article_id": "2",
       "date": "2025-06-25 10:30:00",
       "name": "Nimali Fonseka",
       "email": "nimalifonseka@gmail.com",
       "comment": "Wow!"
     },
     {
-      "id": 5,
-      "article_id": 2,
+      "id": "5",
+      "article_id": "2",
       "date": "2025-06-26 10:30:00",
       "name": "Samantha Jayasinghe",
       "email": "samanthaj@gmail.com",
       "comment": "Very informative post."
     },
     {
-      "id": 6,
-      "article_id": 3,
+      "id": "6",
+      "article_id": "3",
       "date": "2025-06-26 10:30:00",
       "name": "Ruwan Karunaratne",
       "email": "ruwank@gmail.com",
       "comment": "Helpful content, thank you!"
     },
     {
-      "id": 7,
-      "article_id": 3,
+      "id": "7",
+      "article_id": "3",
       "date": "2025-06-27 10:30:00",
       "name": "Tharushi Madushanka",
       "email": "tharushim@gmail.com",
       "comment": "Really enjoyed this article!"
     },
     {
-      "id": 8,
-      "article_id": 3,
+      "id": "8",
+      "article_id": "3",
       "date": "2025-06-27 10:30:00",
       "name": "Dulaj Perera",
       "email": "dulajp@gmail.com",
       "comment": "Good work, keep it up."
     },
     {
-      "id": 9,
-      "article_id": 4,
+      "id": "9",
+      "article_id": "4",
       "date": "2025-06-28 10:30:00",
       "name": "Manjula Fernando",
       "email": "manjulafernando@gmail.com",
       "comment": "Excellent insights!"
     },
     {
-      "id": 10,
-      "article_id": 4,
+      "id": "10",
+      "article_id": "4",
       "date": "2025-06-28 10:30:00",
       "name": "Harsha Gunasekara",
       "email": "harshagunasekara@gmail.com",

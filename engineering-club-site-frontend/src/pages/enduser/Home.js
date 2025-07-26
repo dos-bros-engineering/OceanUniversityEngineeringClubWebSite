@@ -41,7 +41,10 @@ const Home = () => {
         </Row>
         <Row className="p-0 m-0 mt-4" data-aos="fade-up">
           <div>
-            <PostGrid posts={shipConstructionsPosts} category="Ship Constructions" />
+            <PostGrid
+              posts={shipConstructionsPosts}
+              category="Ship Constructions"
+            />
           </div>
         </Row>
         <Row className="p-0 m-0 mt-4">
