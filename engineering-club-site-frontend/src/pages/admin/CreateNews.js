@@ -19,6 +19,11 @@ const CreateNews = () => {
   const [publish, setPublish] = useState("");
   const [body, setBody] = useState("");
 
+  const [errorTitle, setErrorTitle] = useState(false);
+  const [errorImage, setErrorImage] = useState(false);
+  const [errorPublish, setErrorPublish] = useState(false);
+  const [errorBody, setErrorBody] = useState(false);
+
   // Modules for rich text editor 
   const modules = {
     toolbar: [
@@ -38,12 +43,25 @@ const CreateNews = () => {
       setImage(URL.createObjectURL(img));
     } else {
       setImage("");
+      setErrorImage(true);
     }
   };
 
   // Add news
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Image validation
+    if (!image || image === "") {
+      setErrorImage(true);
+      return;
+    }
+
+    // Rich text editor validation
+    if (!body || body.trim() === "" || body === "<p><br></p>") {
+      setErrorBody(true);
+      return;
+    }
 
     const news = {
       title: title,
@@ -79,19 +97,28 @@ const CreateNews = () => {
         {/* Add News Form */}
         <form className="mt-3" onSubmit={handleSubmit}>
           <div className="form-group">
+            <label>
+              <i className="bi bi-star-fill"></i> Title
+            </label>
             <input
               type="text"
               class="form-control"
-              id="title"
               placeholder="Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              onInvalid={(e) =>
-                e.target.setCustomValidity("Please enter your news title")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
+              onInvalid={(e) => {
+                e.preventDefault();
+                setErrorTitle(true);
+              }}
+              onInput={() => setErrorTitle(false)}
               required
             />
+            {errorTitle && (
+              <label className="text-danger">
+                <i className="bi bi-exclamation-circle-fill"></i> Please enter
+                your news title!
+              </label>
+            )}
           </div>
           {/* Image Upload Area */}
           <div
@@ -127,9 +154,14 @@ const CreateNews = () => {
                   id="image-upload"
                   accept="image/*"
                   onChange={getImage}
-                  required
                 />
               </div>
+              {errorImage && (
+                <label className="text-danger d-flex justify-content-center">
+                  <i className="bi bi-exclamation-circle-fill me-1"></i> Please
+                  select an image!
+                </label>
+              )}
             </div>
           </div>
           <div className="form-group mb-3">
@@ -137,10 +169,11 @@ const CreateNews = () => {
               class="form-select"
               value={publish}
               onChange={(e) => setPublish(e.target.value === "true")}
-              onInvalid={(e) =>
-                e.target.setCustomValidity("Please select a publish type")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
+              onInvalid={(e) => {
+                e.preventDefault();
+                setErrorPublish(true);
+              }}
+              onInput={() => setErrorPublish(false)}
               required
             >
               <option value="" selected hidden>
@@ -149,6 +182,12 @@ const CreateNews = () => {
               <option value="true">Yes</option>
               <option value="false">No</option>
             </select>
+            {errorPublish && (
+              <label className="text-danger">
+                <i className="bi bi-exclamation-circle-fill"></i> Please select
+                a publish type!
+              </label>
+            )}
           </div>
           {/* Rich Text Editor */}
           <div>
@@ -159,8 +198,13 @@ const CreateNews = () => {
               value={body}
               onChange={setBody}
               placeholder="Write something..."
-              required
             />
+            {errorBody && (
+              <label className="text-danger">
+                <i className="bi bi-exclamation-circle-fill"></i> Please enter
+                something!
+              </label>
+            )}
           </div>
           <div className="d-flex justify-content-end mt-3">
             <button
