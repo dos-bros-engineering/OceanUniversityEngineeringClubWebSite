@@ -4,8 +4,8 @@ import "./Admin.css";
 import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
-import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.snow.css';
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 import { useAuth } from "../../utils/AuthContext";
 
 const CreateArticle = () => {
@@ -20,18 +20,24 @@ const CreateArticle = () => {
   const [publish, setPublish] = useState("");
   const [body, setBody] = useState("");
 
-  // Modules for rich text editor 
+  const [errorTitle, setErrorTitle] = useState(false);
+  const [errorCategory, setErrorCategory] = useState(false);
+  const [errorImage, setErrorImage] = useState(false);
+  const [errorPublish, setErrorPublish] = useState(false);
+  const [errorBody, setErrorBody] = useState(false);
+
+  // Modules for rich text editor
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
       [{ align: [] }],
-      ['link', 'image', 'video'],
+      ["link", "image", "video"],
     ],
   };
 
-  // Get Image 
+  // Get Image
   const getImage = (e) => {
     const img = e.target.files[0];
 
@@ -39,12 +45,25 @@ const CreateArticle = () => {
       setImage(URL.createObjectURL(img));
     } else {
       setImage("");
+      setErrorImage(true);
     }
   };
 
   // Add article
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Image validation
+    if (!image || image === "") {
+      setErrorImage(true);
+      return;
+    }
+
+    // Rich text editor validation
+    if (!body || body.trim() === "" || body === "<p><br></p>") {
+      setErrorBody(true);
+      return;
+    }
 
     const article = {
       title: title,
@@ -54,7 +73,7 @@ const CreateArticle = () => {
       body: body,
       author: auth.user,
       views: 0,
-      publish: publish
+      publish: publish,
     };
 
     fetch(ApiRoutes.ARTICLE, {
@@ -81,33 +100,43 @@ const CreateArticle = () => {
         {/* Add Article Form */}
         <form className="mt-3" onSubmit={handleSubmit}>
           <div className="form-group">
+            <label>
+              <i className="bi bi-star-fill"></i> Title
+            </label>
             <input
               type="text"
               class="form-control"
-              id="title"
               placeholder="Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              onInvalid={(e) =>
-                e.target.setCustomValidity("Please enter your article title")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
+              onInvalid={(e) => {
+                e.preventDefault();
+                setErrorTitle(true);
+              }}
+              onInput={() => setErrorTitle(false)}
               required
             />
+            {errorTitle && (
+              <label className="text-danger">
+                <i className="bi bi-exclamation-circle-fill"></i> Please enter
+                your article title!
+              </label>
+            )}
           </div>
           <div className="form-group my-3">
             <select
               class="form-select"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              onInvalid={(e) =>
-                e.target.setCustomValidity("Please select a category")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
+              onInvalid={(e) => {
+                e.preventDefault();
+                setErrorCategory(true);
+              }}
+              onInput={() => setErrorCategory(false)}
               required
             >
               <option value="" selected hidden>
-                --- Select Category ---
+                --- Select Article Category ---
               </option>
               <option value="Pumps">Pumps</option>
               <option value="Ship Constructions">Ship Constructions</option>
@@ -115,6 +144,12 @@ const CreateArticle = () => {
               <option value="Ship Type">Ship Type</option>
               <option value="Other">Other</option>
             </select>
+            {errorCategory && (
+              <label className="text-danger">
+                <i className="bi bi-exclamation-circle-fill"></i> Please select
+                an article category!
+              </label>
+            )}
           </div>
           {/* Image Upload Area */}
           <div
@@ -150,9 +185,14 @@ const CreateArticle = () => {
                   id="image-upload"
                   accept="image/*"
                   onChange={getImage}
-                  required
                 />
               </div>
+              {errorImage && (
+                <label className="text-danger d-flex justify-content-center">
+                  <i className="bi bi-exclamation-circle-fill me-1"></i> Please
+                  select an image!
+                </label>
+              )}
             </div>
           </div>
           <div className="form-group mb-3">
@@ -160,10 +200,11 @@ const CreateArticle = () => {
               class="form-select"
               value={publish}
               onChange={(e) => setPublish(e.target.value === "true")}
-              onInvalid={(e) =>
-                e.target.setCustomValidity("Please select a publish type")
-              }
-              onInput={(e) => e.target.setCustomValidity("")}
+              onInvalid={(e) => {
+                e.preventDefault();
+                setErrorPublish(true);
+              }}
+              onInput={() => setErrorPublish(false)}
               required
             >
               <option value="" selected hidden>
@@ -172,9 +213,18 @@ const CreateArticle = () => {
               <option value="true">Yes</option>
               <option value="false">No</option>
             </select>
+            {errorPublish && (
+              <label className="text-danger">
+                <i className="bi bi-exclamation-circle-fill"></i> Please select
+                a publish type!
+              </label>
+            )}
           </div>
           {/* Rich Text Editor */}
           <div>
+            <label>
+              <i className="bi bi-chat-text-fill"></i> Body
+            </label>
             <ReactQuill
               className="rich-text-editor"
               modules={modules}
@@ -182,8 +232,13 @@ const CreateArticle = () => {
               value={body}
               onChange={setBody}
               placeholder="Write something..."
-              required
             />
+            {errorBody && (
+              <label className="text-danger">
+                <i className="bi bi-exclamation-circle-fill"></i> Please enter
+                something!
+              </label>
+            )}
           </div>
           <div className="d-flex justify-content-end mt-3">
             <button

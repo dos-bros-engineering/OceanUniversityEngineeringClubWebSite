@@ -19,7 +19,7 @@ const Footer = () => {
       <Container fluid className="shadow-lg">
         <Row>
           <div className="col-lg text-center mt-4">
-            <img src={clublogo} className="club-logo" alt="club-logo" />
+            <img src={clublogo} className="club-logo me-1" alt="club-logo" />
             <a href="https://ocu.ac.lk/" target="_blank">
               <img src={oculogo} className="ocu-logo" alt="ocu-logo" />
             </a>

@@ -79,9 +79,9 @@ const AdminProfile = () => {
         </div>
       </div>
       {/* Admin edit profile form  */}
-      <form className="mt-4" onSubmit={handleSubmit}>
+      <form className="mt-3" onSubmit={handleSubmit}>
         <div className="row">
-          <div className="form-group mt-3 col-lg-6">
+          <div className="form-group col-lg-6">
             <label>
               <i className="bi bi-person-fill"></i> Name
             </label>
@@ -90,9 +90,10 @@ const AdminProfile = () => {
               class="form-control"
               value={user?.name}
               disabled
+              readOnly
             />
           </div>
-          <div className="form-group mt-3 col-lg-6">
+          <div className="form-group mt-3 mt-lg-0 col-lg-6">
             <label>
               <i className="bi bi-envelope-fill"></i> Email Address
             </label>
@@ -101,6 +102,7 @@ const AdminProfile = () => {
               class="form-control"
               value={user?.email}
               disabled
+              readOnly
             />
           </div>
         </div>
