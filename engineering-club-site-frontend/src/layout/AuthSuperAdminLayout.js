@@ -1,21 +1,15 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../components/super admin/footer/Footer";
-import Header from "../components/super admin/header/Header";
 import "./Layout.css";
 import LoaderAnimation from "../utils/animation/LoaderAnimation"
 import ErrorAnimation from "../utils/animation/ErrorAnimation";
 import { useData } from "../utils/DataContext";
 
-const SuperAdminLayout = () => {
+const AuthSuperAdminLayout = () => {
   const { isPendingAdmin, isPendingArticles, isPendingNews, isPendingComments, errorAdmin, errorArticles, errorNews, errorComments } = useData();
 
   return (
     <div className="Superadmin-App">
-      {/* Header */}
-      <header>
-        <Header />
-      </header>
-
       {/* The animation shown after an error occurs */}
       {(errorAdmin || errorArticles || errorNews || errorComments) && (
         <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
@@ -25,7 +19,10 @@ const SuperAdminLayout = () => {
       )}
 
       {/* The animation shown before fetching data */}
-      {(isPendingAdmin || isPendingArticles || isPendingNews || isPendingComments) && (
+      {(isPendingAdmin ||
+        isPendingArticles ||
+        isPendingNews ||
+        isPendingComments) && (
         <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
           <LoaderAnimation />
           <h4 className="mt-3">Loading...</h4>
@@ -41,7 +38,7 @@ const SuperAdminLayout = () => {
         !isPendingArticles &&
         !isPendingNews &&
         !isPendingComments && (
-          <main className="min-vh-100">
+          <main className="min-vh-100 px-lg-5">
             <Outlet />
           </main>
         )}
@@ -54,4 +51,4 @@ const SuperAdminLayout = () => {
   );
 };
 
-export default SuperAdminLayout;
+export default AuthSuperAdminLayout;

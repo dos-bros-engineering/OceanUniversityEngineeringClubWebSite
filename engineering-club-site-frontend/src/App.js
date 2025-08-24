@@ -32,6 +32,13 @@ import CommentManage from "./pages/admin/CommentManage";
 import AuthAdminLayout from "./layout/AuthAdminLayout";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
+import SuperAdminLayout from "./layout/SuperAdminLayout";
+import SuperAdminHome from "./pages/super admin/SuperAdminHome";
+import SuperAdminArticleManage from "./pages/super admin/SuperAdminArticleManage";
+import AuthSuperAdminLayout from "./layout/AuthSuperAdminLayout";
+import SuperAdminLogin from "./pages/super admin/SuperAdminLogin";
+import SuperAdminForgotPassword from "./pages/super admin/SuperAdminForgotPassword";
+import SuperAdminNewsManage from "./pages/super admin/SuperAdminNewsManage";
 
 const App = () => {
   // Scroll Animation
@@ -86,6 +93,19 @@ const App = () => {
                 <Route path="/admin/news-manage/:idSlug" element={<EditNews />} />
                 <Route path="/admin/comment-manage" element={<CommentManage />} />
               </Route>
+            </Route>
+
+            {/* Super Admin Routes */}
+            {/* Routes before login  */}
+            <Route element={<AuthSuperAdminLayout />}>
+              <Route path="/superadmin" element={<SuperAdminLogin />} />
+              <Route path="/superadmin/forgot-password" element={<SuperAdminForgotPassword />} />
+            </Route>
+            {/* Routes after login */}
+            <Route element={<SuperAdminLayout />}>
+              <Route path="/superadmin/home" element={<SuperAdminHome />} />
+              <Route path="/superadmin/article-manage" element={<SuperAdminArticleManage />} />
+              <Route path="/superadmin/news-manage" element={<SuperAdminNewsManage />} />
             </Route>
           </Routes>
         </DataProvider>
