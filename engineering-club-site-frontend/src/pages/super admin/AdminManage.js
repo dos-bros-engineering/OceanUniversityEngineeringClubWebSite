@@ -3,8 +3,8 @@ import { useData } from "../../utils/DataContext";
 import { useNavigate } from "react-router-dom";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
-import "../../components/super admin/search/Search.css";
-import Search from "../../components/super admin/search/Search";
+import Search from "../../components/search/AdminSearch";
+import "./SuperAdmin.css";
 
 const AdminManage = () => {
   UseTitleName("Admin Manage | OCU Engineering Club");
@@ -48,7 +48,7 @@ const AdminManage = () => {
           </button>
         </div>
         <div className="col-lg-2 mt-2 mt-lg-0 ps-lg-0">
-          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-superadmin"} />
         </div>
       </div>
 

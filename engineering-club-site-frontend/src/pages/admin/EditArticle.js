@@ -105,7 +105,7 @@ const EditArticle = () => {
             <input
               type="text"
               class="form-control"
-              placeholder="Title"
+              placeholder="Enter your article title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               onInvalid={(e) => {
@@ -162,7 +162,7 @@ const EditArticle = () => {
               )}
               <div className="d-flex justify-content-center">
                 <label for="image-upload" class="custom-image-upload">
-                  Image Upload
+                  Thumbnail Upload
                 </label>
                 <input
                   type="file"
@@ -174,7 +174,7 @@ const EditArticle = () => {
               {errorImage && (
                 <label className="text-danger d-flex justify-content-center">
                   <i className="bi bi-exclamation-circle-fill me-1"></i> Please
-                  select an image!
+                  select an article thumbnail image!
                 </label>
               )}
             </div>

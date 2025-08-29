@@ -91,7 +91,7 @@ const EditNews = () => {
   return (
     <>
       <div className="container my-4 admin-manage-posts" data-aos="fade-up">
-        <h1>Create News</h1>
+        <h1>Edit News</h1>
 
         {/* Edit News Form */}
         <form className="mt-3" onSubmit={handleSubmit}>
@@ -103,7 +103,7 @@ const EditNews = () => {
               type="text"
               class="form-control"
               id="title"
-              placeholder="Title"
+              placeholder="Enter your news title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               onInvalid={(e) => {
@@ -147,7 +147,7 @@ const EditNews = () => {
               )}
               <div className="d-flex justify-content-center">
                 <label for="image-upload" class="custom-image-upload">
-                  Image Upload
+                  Thumbnail Upload
                 </label>
                 <input
                   type="file"
@@ -159,7 +159,7 @@ const EditNews = () => {
               {errorImage && (
                 <label className="text-danger d-flex justify-content-center">
                   <i className="bi bi-exclamation-circle-fill me-1"></i> Please
-                  select an image!
+                  select a news thumbnail image!
                 </label>
               )}
             </div>

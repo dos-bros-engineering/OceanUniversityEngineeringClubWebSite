@@ -1,9 +1,9 @@
-import "../../components/enduser/header/Header.css";
+import "../../components/header/Header.css";
 import UseTitleName from "../../utils/UseTitleName";
-import Sidebar from "../../components/enduser/sidebar/Sidebar";
-import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
+import Sidebar from "../../components/sidebar/Sidebar";
+import PaginationPostGrid from "../../components/post grid/PaginationPostGrid";
 import { useLocation } from "react-router-dom";
-import Search from "../../components/enduser/search/Search";
+import Search from "../../components/search/EndUserSearch";
 import { useEffect, useState } from "react";
 import { useData } from "../../utils/DataContext";
 
@@ -76,7 +76,7 @@ const SearchResults = () => {
             </div>
           )}
           <div className="my-3">
-            <PostGrid2 posts={postResults} />
+            <PaginationPostGrid posts={postResults} styleType={"post-grid"} />
           </div>
         </div>
         <div className="mb-4 col-lg-4">

@@ -1,5 +1,5 @@
 import UseTitleName from "../../utils/UseTitleName";
-import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
+import PaginationPostGrid from "../../components/post grid/PaginationPostGrid";
 import { useData } from "../../utils/DataContext";
 
 const Pumps = () => {
@@ -11,7 +11,7 @@ const Pumps = () => {
 
   return (
     <>
-      <PostGrid2 posts={pumpsPosts} />
+      <PaginationPostGrid posts={pumpsPosts} styleType={"post-grid"} />
     </>
   );
 }

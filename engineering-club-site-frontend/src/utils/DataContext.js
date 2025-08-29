@@ -6,16 +6,19 @@ const DataContext = createContext();
 export const useData = () => useContext(DataContext);
 
 export const DataProvider = ({ children }) => {
+  const [superadmin, setSuperAdmin] = useState([]);
   const [admin, setAdmin] = useState([]);
   const [articles, setArticles] = useState([]);
   const [news, setNews] = useState([]);
   const [comments, setComments] = useState([]);
 
+  const [isPendingSuperAdmin, setIsPendingSuperAdmin] = useState(true);
   const [isPendingAdmin, setIsPendingAdmin] = useState(true);
   const [isPendingArticles, setIsPendingArticles] = useState(true);
   const [isPendingNews, setIsPendingNews] = useState(true);
   const [isPendingComments, setIsPendingComments] = useState(true);
 
+  const [errorSuperAdmin, setErrorSuperAdmin] = useState(null);
   const [errorAdmin, setErrorAdmin] = useState(null);
   const [errorArticles, setErrorArticles] = useState(null);
   const [errorNews, setErrorNews] = useState(null);
@@ -23,6 +26,7 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     setTimeout(() => {
+      getSuperAdmin();
       getAdmin();
       getArticle();
       getNews();
@@ -31,6 +35,24 @@ export const DataProvider = ({ children }) => {
   }, []);
 
   // Get data from APIs
+  const getSuperAdmin = () => {
+    fetch(ApiRoutes.SUPERADMIN)
+      .then((res) => {
+        if(!res.ok) {
+          throw Error("Could not fetch the data for that resource");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setSuperAdmin(data);
+        setIsPendingSuperAdmin(false);
+        setErrorSuperAdmin(null);
+      }).catch(err => {
+        setIsPendingSuperAdmin(false);
+        setErrorSuperAdmin(err.message);
+      });
+  };
+
   const getAdmin = () => {
     fetch(ApiRoutes.ADMIN)
       .then((res) => {
@@ -105,8 +127,8 @@ export const DataProvider = ({ children }) => {
 
   return (
     <DataContext.Provider 
-      value={{ admin, articles, news, comments, getAdmin, getArticle, getNews, getComment, isPendingAdmin, isPendingArticles, 
-        isPendingNews, isPendingComments, errorAdmin, errorArticles, errorNews, errorComments 
+      value={{ superadmin, admin, articles, news, comments, getSuperAdmin, getAdmin, getArticle, getNews, getComment, isPendingSuperAdmin, isPendingAdmin, isPendingArticles, 
+        isPendingNews, isPendingComments, errorSuperAdmin, errorAdmin, errorArticles, errorNews, errorComments 
       }}
     >
       {children}

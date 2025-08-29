@@ -42,6 +42,7 @@ import SuperAdminNewsManage from "./pages/super admin/SuperAdminNewsManage";
 import AdminManage from "./pages/super admin/AdminManage";
 import CreateAdmin from "./pages/super admin/CreateAdmin";
 import EditAdmin from "./pages/super admin/EditAdmin";
+import SuperAdminProfile from "./pages/super admin/SuperAdminProfile";
 
 const App = () => {
   // Scroll Animation
@@ -105,13 +106,16 @@ const App = () => {
               <Route path="/superadmin/forgot-password" element={<SuperAdminForgotPassword />} />
             </Route>
             {/* Routes after login */}
-            <Route element={<SuperAdminLayout />}>
-              <Route path="/superadmin/home" element={<SuperAdminHome />} />
-              <Route path="/superadmin/article-manage" element={<SuperAdminArticleManage />} />
-              <Route path="/superadmin/news-manage" element={<SuperAdminNewsManage />} />
-              <Route path="/superadmin/admin-manage" element={<AdminManage />} />
-              <Route path="/superadmin/create-admin" element={<CreateAdmin />} />
-              <Route path="/superadmin/admin-manage/:idSlug" element={<EditAdmin />} />
+            <Route element={<PrivateRoutes navigate={"/superadmin"} /> }>
+              <Route element={<SuperAdminLayout />}>
+                <Route path="/superadmin/home" element={<SuperAdminHome />} />
+                <Route path="/superadmin/article-manage" element={<SuperAdminArticleManage />} />
+                <Route path="/superadmin/news-manage" element={<SuperAdminNewsManage />} />
+                <Route path="/superadmin/admin-manage" element={<AdminManage />} />
+                <Route path="/superadmin/create-admin" element={<CreateAdmin />} />
+                <Route path="/superadmin/admin-manage/:idSlug" element={<EditAdmin />} />
+                <Route path="/superadmin/profile" element={<SuperAdminProfile />} />
+              </Route>
             </Route>
           </Routes>
         </DataProvider>

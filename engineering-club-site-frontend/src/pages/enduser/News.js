@@ -1,7 +1,7 @@
 import UseTitleName from "../../utils/UseTitleName";
-import Slider from "../../components/enduser/slider/Slider";
-import PostGrid2 from "../../components/enduser/post grid/PostGrid2";
-import Sidebar from "../../components/enduser/sidebar/Sidebar";
+import Slider from "../../components/slider/Slider";
+import PaginationPostGrid from "../../components/post grid/PaginationPostGrid";
+import Sidebar from "../../components/sidebar/Sidebar";
 import { useData } from "../../utils/DataContext";
 
 const News = () => {
@@ -22,7 +22,7 @@ const News = () => {
       </div>
       <div className="row my-4">
         <div className="col-lg-8" data-aos="fade-up">
-          <PostGrid2 posts={newsPosts} />
+          <PaginationPostGrid posts={newsPosts} styleType={"post-grid"} />
         </div>
         <div className="col-lg-4">
           <Sidebar />

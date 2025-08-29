@@ -1,14 +1,18 @@
 import UseTitleName from "../../utils/UseTitleName";
-import PostGrid from "../../components/super admin/post grid/PostGrid";
+import PostGrid from "../../components/post grid/AdminPostGrid";
 import { useData } from "../../utils/DataContext";
-import Search from "../../components/super admin/search/Search";
+import Search from "../../components/search/AdminSearch";
 import { useEffect, useState } from "react";
-import PostGrid2 from "../../components/super admin/post grid/PostGrid2";
+import PaginationPostGrid from "../../components/post grid/PaginationPostGrid";
 import { useAuth } from "../../utils/AuthContext";
+import "./SuperAdmin.css";
 
 const SuperAdminHome = () => {
-  const { articles, news } = useData();
-  // const auth = useAuth();
+  const { articles, news, superadmin } = useData();
+  const auth = useAuth();
+
+  // Get super admin attributes
+  const user = superadmin?.find((a) => a.email === auth.user);
 
   const [postResults, setPostResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,18 +46,18 @@ const SuperAdminHome = () => {
   return (
     <div className="container">
       <div className="row mt-4" data-aos="fade-up">
-        <h1>Welcome Admin!</h1>
+        <h1>Welcome {user?.name}!</h1>
       </div>
       <div className="mt-2 d-lg-flex justify-content-end" data-aos="fade-up">
-        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-superadmin"} />
       </div>
       {searchTerm.trim() === "" ? (
         <div className="row my-4">
           <div className="col-lg-6" data-aos="fade-up">
-            <PostGrid posts={latestArticlePosts} category="Latest Article" />
+            <PostGrid posts={latestArticlePosts} category="Latest Article" styleType={"post-grid-superadmin"} />
           </div>
           <div className="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up">
-            <PostGrid posts={latestNewsPosts} category="Latest News" />
+            <PostGrid posts={latestNewsPosts} category="Latest News" styleType={"post-grid-superadmin"} />
           </div>
         </div>
       ) : (
@@ -71,7 +75,7 @@ const SuperAdminHome = () => {
               </div>
             )}
             <div className="my-3" data-aos="fade-up">
-              <PostGrid2 posts={postResults} />
+              <PaginationPostGrid posts={postResults} styleType={"post-grid-superadmin"} />
             </div>
           </div>
         </div>
