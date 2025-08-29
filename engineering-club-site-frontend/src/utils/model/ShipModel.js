@@ -83,13 +83,11 @@ const SeaScene = () => {
 
 const ShipModel = () => {
   return (
-    <div style={{ height: "100vh" }}>
-      <Canvas camera={{ position: [0, 5, 20], fov: 50 }}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 10, 5]} />
-        <SeaScene />
-      </Canvas>
-    </div>
+    <Canvas camera={{ position: [0, 5, 20], fov: 50 }}>
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 10, 5]} />
+      <SeaScene />
+    </Canvas>
   );
 }
 

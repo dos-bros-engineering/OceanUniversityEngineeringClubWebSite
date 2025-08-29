@@ -4,21 +4,25 @@ import { useAuth } from "../../utils/AuthContext";
 import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
-import "./Admin.css";
+import "./SuperAdmin.css";
 
-const AdminProfile = () => {
+const SuperAdminProfile = () => {
   UseTitleName("Profile | OCU Engineering Club");
   const auth = useAuth();
   const navigate = useNavigate();
-  const { admin, getAdmin} = useData();
+  const { superadmin, getSuperAdmin} = useData();
 
   // Get admin attributes
-  const user = admin?.find((a) => a.email === auth.user);
+  const user = superadmin?.find((a) => a.email === auth.user);
 
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
   const [currentPW, setCurrentPW] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPW, setConfirmPW] = useState("");
 
+  const [errorName, setErrorName] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
   const [errorCurrentPW, setErrorCurrentPW] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
   const [errorConfirmPW, setErrorConfirmPW] = useState(false);
@@ -27,11 +31,40 @@ const AdminProfile = () => {
 
   const handleLogout = () => {
     auth.logout();
-    navigate("/admin");
+    navigate("/superadmin");
   };
 
-  // Update admin
-  const handleSubmit = (e) => {
+  // Update superadmin
+  const handleSubmitDetails = (e) => {
+    e.preventDefault();
+
+    const superadmin = {
+      name: name,
+      email: email
+    };
+
+    fetch(ApiRoutes.SUPERADMIN + "/" + user?.id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(superadmin),
+    })
+      .then(() => {
+        setSuccessMsg(true);
+        getSuperAdmin();
+
+        if(superadmin.email !== auth.user) {
+          auth.login(superadmin.email);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setSuccessMsg(false);
+      });
+  };
+
+  const handleSubmitPassword = (e) => {
     e.preventDefault();
 
     //Current Password Validation
@@ -41,20 +74,20 @@ const AdminProfile = () => {
     }
 
     if (password === confirmPW) {
-      const admin = {
+      const superadmin = {
         password: password,
       };
 
-      fetch(ApiRoutes.ADMIN + "/" + user?.id, {
+      fetch(ApiRoutes.SUPERADMIN + "/" + user?.id, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(admin),
+        body: JSON.stringify(superadmin),
       })
         .then(() => {
           setSuccessMsg(true);
-          getAdmin();
+          getSuperAdmin();
         })
         .catch((err) => {
           console.log(err.message);
@@ -66,14 +99,14 @@ const AdminProfile = () => {
   };
 
   return (
-    <div className="container pb-5 admin-manage-posts" data-aos="fade-up">
+    <div className="container pb-5 superadmin-manage-posts" data-aos="fade-up">
       <div className="mt-4">
         <h1>Profile</h1>
         <div className="d-flex justify-content-end">
           <button
             type="submit"
             class="btn btn-primary"
-            style={{ backgroundColor: "#00798eff", border: 0, width: 120 }}
+            style={{ backgroundColor: "#2200aa", border: 0, width: 120 }}
             onClick={handleLogout}
           >
             Logout <i class="bi bi-box-arrow-left"></i>
@@ -111,7 +144,8 @@ const AdminProfile = () => {
       </div>
 
       {/* Admin profile form */}
-      <div className="row border border-white border-2 rounded p-3 m-0 mt-3">
+      <form className="row border border-white border-2 rounded p-3 m-0 mt-3" onSubmit={handleSubmitDetails}>
+        <h4>Change Personal Information</h4>
         <div className="form-group col-lg-6">
           <label>
             <i className="bi bi-person-fill"></i> Name
@@ -119,10 +153,22 @@ const AdminProfile = () => {
           <input
             type="text"
             class="form-control"
-            value={user?.name}
-            disabled
-            readOnly
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onInvalid={(e) => {
+              e.preventDefault();
+              setErrorName(true);
+            }}
+            onInput={() => setErrorName(false)}
+            required
           />
+          {errorName && (
+            <label className="text-danger">
+              <i className="bi bi-exclamation-circle-fill"></i> Please enter
+              your name!
+            </label>
+          )}
         </div>
         <div className="form-group mt-3 mt-lg-0 col-lg-6">
           <label>
@@ -131,17 +177,38 @@ const AdminProfile = () => {
           <input
             type="email"
             class="form-control"
-            value={user?.email}
-            disabled
-            readOnly
+            placeholder="Enter your email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onInvalid={(e) => {
+              e.preventDefault();
+              setErrorEmail(true);
+            }}
+            onInput={() => setErrorEmail(false)}
+            required
           />
+          {errorEmail && (
+            <label className="text-danger">
+              <i className="bi bi-exclamation-circle-fill"></i> Please enter
+              your email address!
+            </label>
+          )}
         </div>
-      </div>
+        <div className="d-flex justify-content-end mt-3">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
+          >
+            Update
+          </button>
+        </div>
+      </form>
       
       {/* Admin edit password form */}
       <form
         className="mt-3 row border border-white border-2 rounded p-3 m-0"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmitPassword}
       >
         <h4>Change Password</h4>
         <div className="form-group col-lg-4">
@@ -230,4 +297,4 @@ const AdminProfile = () => {
   );
 };
 
-export default AdminProfile;
+export default SuperAdminProfile;

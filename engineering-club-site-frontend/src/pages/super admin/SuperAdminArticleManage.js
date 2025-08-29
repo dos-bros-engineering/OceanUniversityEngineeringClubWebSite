@@ -3,8 +3,8 @@ import { useData } from "../../utils/DataContext";
 import FormatDate from "../../utils/FormatDate";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
-import "../../components/super admin/search/Search.css";
-import Search from "../../components/super admin/search/Search";
+import Search from "../../components/search/AdminSearch";
+import "./SuperAdmin.css";
 
 const SuperAdminArticleManage = () => {
   UseTitleName("Article Manage | OCU Engineering Club");
@@ -34,7 +34,7 @@ const SuperAdminArticleManage = () => {
 
       <div className="row mt-3 d-lg-flex justify-content-end">
         <div className="col-lg-2 ps-lg-0">
-          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-superadmin"} />
         </div>
       </div>
 

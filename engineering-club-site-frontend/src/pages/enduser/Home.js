@@ -1,8 +1,8 @@
 import UseTitleName from "../../utils/UseTitleName";
-import PostGrid from "../../components/enduser/post grid/PostGrid";
+import PostGrid from "../../components/post grid/EndUserPostGrid";
 import { useData } from "../../utils/DataContext";
 import ShipModel from "../../utils/model/ShipModel";
-import Slider from "../../components/enduser/slider/Slider";
+import Slider from "../../components/slider/Slider";
 import "./EndUser.css";
 
 const Home = () => {
@@ -40,12 +40,18 @@ const Home = () => {
       {/* Ship 3D Model with Overlay Text */}
       <div data-aos="fade-up">
         <div className="overlay-text">
-          <div className="typing-animation">
-            <h1>Welcome to the OCU Engineering Club.</h1>
+          <div className="d-inline-block">
+            <h1 className="typing-animation-line1">Welcome to the OCU</h1>
+          </div>
+          <br></br>
+          <div className="d-inline-block">
+            <h1 className="typing-animation-line2">Engineering Club.</h1>
           </div>
           <p className="fs-3">Explore the Waves, Discover New Horizons.</p>
         </div>
-        <ShipModel />
+        <div className="shipmodel">
+          <ShipModel />
+        </div>
       </div>
 
       <div className="container pb-3">

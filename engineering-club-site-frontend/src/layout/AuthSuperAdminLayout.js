@@ -1,17 +1,17 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../components/super admin/footer/Footer";
+import Footer from "../components/footer/AdminFooter";
 import "./Layout.css";
 import LoaderAnimation from "../utils/animation/LoaderAnimation"
 import ErrorAnimation from "../utils/animation/ErrorAnimation";
 import { useData } from "../utils/DataContext";
 
 const AuthSuperAdminLayout = () => {
-  const { isPendingAdmin, isPendingArticles, isPendingNews, isPendingComments, errorAdmin, errorArticles, errorNews, errorComments } = useData();
+  const { isPendingSuperAdmin, isPendingAdmin, isPendingArticles, isPendingNews, isPendingComments, errorSuperAdmin, errorAdmin, errorArticles, errorNews, errorComments } = useData();
 
   return (
     <div className="Superadmin-App">
       {/* The animation shown after an error occurs */}
-      {(errorAdmin || errorArticles || errorNews || errorComments) && (
+      {(errorSuperAdmin || errorAdmin || errorArticles || errorNews || errorComments) && (
         <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
           <ErrorAnimation />
           <h4>Something went wrong!</h4>
@@ -19,7 +19,8 @@ const AuthSuperAdminLayout = () => {
       )}
 
       {/* The animation shown before fetching data */}
-      {(isPendingAdmin ||
+      {(isPendingSuperAdmin ||
+        isPendingAdmin ||
         isPendingArticles ||
         isPendingNews ||
         isPendingComments) && (
@@ -30,10 +31,12 @@ const AuthSuperAdminLayout = () => {
       )}
 
       {/* page */}
-      {!errorAdmin &&
+      {!errorSuperAdmin &&
+        !errorAdmin &&
         !errorArticles &&
         !errorNews &&
         !errorComments &&
+        !isPendingSuperAdmin &&
         !isPendingAdmin &&
         !isPendingArticles &&
         !isPendingNews &&
@@ -45,7 +48,7 @@ const AuthSuperAdminLayout = () => {
 
       {/* Footer */}
       <footer>
-        <Footer />
+        <Footer styleType={"footer-superadmin"} />
       </footer>
     </div>
   );

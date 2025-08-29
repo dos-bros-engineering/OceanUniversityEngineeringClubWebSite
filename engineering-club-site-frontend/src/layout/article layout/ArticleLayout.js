@@ -1,7 +1,7 @@
 // This is a page layout for all article pages
 import "./ArticleLayout.css";
-import Slider from "../../components/enduser/slider/Slider";
-import Sidebar from "../../components/enduser/sidebar/Sidebar";
+import Slider from "../../components/slider/Slider";
+import Sidebar from "../../components/sidebar/Sidebar";
 import { Outlet, NavLink } from "react-router-dom";
 import { useData } from "../../utils/DataContext";
 

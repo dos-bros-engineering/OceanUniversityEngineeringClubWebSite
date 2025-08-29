@@ -9,7 +9,7 @@ import { useData } from "../../utils/DataContext";
 const SuperAdminLogin = () => {
   UseTitleName("Super Admin Login | OCU Engineering Club");
   const auth = useAuth();
-  const { admin } = useData();
+  const { superadmin } = useData();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -26,11 +26,11 @@ const SuperAdminLogin = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // To find admin
-    const user = admin.find((a) => a.email === email && a.password === password);
+    // To find superadmin
+    const user = superadmin.find((a) => a.email === email && a.password === password);
 
     if (user) {
-      auth.login(user?.name);
+      auth.login(user?.email);
       navigate(redirectedPath, { replace: true });
     } else {
       setInvalidUser(true);

@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import FormatDate from "../../utils/FormatDate";
 import NotFound from "./NotFound";
-import Sidebar from "../../components/enduser/sidebar/Sidebar";
-import Comment from "../../components/enduser/comment/Comment";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Comment from "../../components/comment/Comment";
 import UseTitleName from "../../utils/UseTitleName";
 import { useData } from "../../utils/DataContext";
 import "./EndUser.css";

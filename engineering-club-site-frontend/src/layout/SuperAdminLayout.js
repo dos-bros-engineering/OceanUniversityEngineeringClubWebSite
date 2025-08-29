@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../components/super admin/footer/Footer";
-import Header from "../components/super admin/header/Header";
+import Footer from "../components/footer/AdminFooter";
+import Header from "../components/header/SuperAdminHeader";
 import "./Layout.css";
 import LoaderAnimation from "../utils/animation/LoaderAnimation"
 import ErrorAnimation from "../utils/animation/ErrorAnimation";
 import { useData } from "../utils/DataContext";
 
 const SuperAdminLayout = () => {
-  const { isPendingAdmin, isPendingArticles, isPendingNews, isPendingComments, errorAdmin, errorArticles, errorNews, errorComments } = useData();
+  const { isPendingSuperAdmin, isPendingAdmin, isPendingArticles, isPendingNews, isPendingComments, errorSuperAdmin, errorAdmin, errorArticles, errorNews, errorComments } = useData();
 
   return (
     <div className="Superadmin-App">
@@ -17,7 +17,7 @@ const SuperAdminLayout = () => {
       </header>
 
       {/* The animation shown after an error occurs */}
-      {(errorAdmin || errorArticles || errorNews || errorComments) && (
+      {(errorSuperAdmin || errorAdmin || errorArticles || errorNews || errorComments) && (
         <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
           <ErrorAnimation />
           <h4>Something went wrong!</h4>
@@ -25,7 +25,7 @@ const SuperAdminLayout = () => {
       )}
 
       {/* The animation shown before fetching data */}
-      {(isPendingAdmin || isPendingArticles || isPendingNews || isPendingComments) && (
+      {(isPendingSuperAdmin || isPendingAdmin || isPendingArticles || isPendingNews || isPendingComments) && (
         <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
           <LoaderAnimation />
           <h4 className="mt-3">Loading...</h4>
@@ -33,10 +33,12 @@ const SuperAdminLayout = () => {
       )}
 
       {/* page */}
-      {!errorAdmin &&
+      {!errorSuperAdmin &&
+        !errorAdmin &&
         !errorArticles &&
         !errorNews &&
         !errorComments &&
+        !isPendingSuperAdmin &&
         !isPendingAdmin &&
         !isPendingArticles &&
         !isPendingNews &&
@@ -48,7 +50,7 @@ const SuperAdminLayout = () => {
 
       {/* Footer */}
       <footer>
-        <Footer />
+        <Footer styleType={"footer-superadmin"} />
       </footer>
     </div>
   );

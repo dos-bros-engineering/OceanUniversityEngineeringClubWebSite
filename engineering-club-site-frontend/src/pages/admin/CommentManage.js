@@ -3,14 +3,17 @@ import { useData } from "../../utils/DataContext";
 import FormatDate from "../../utils/FormatDate";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
-import "../../components/admin/search/Search.css";
-import Search from "../../components/admin/search/Search";
+import Search from "../../components/search/AdminSearch";
 import { useAuth } from "../../utils/AuthContext";
+import "./Admin.css";
 
 const CommentManage = () => {
   UseTitleName("Comment Manage | OCU Engineering Club");
-  const { articles, comments, getComment } = useData();
+  const { articles, comments, getComment, admin } = useData();
   const auth = useAuth();
+
+  // Get admin attributes
+  const user = admin?.find((a) => a.email === auth.user);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
@@ -34,7 +37,7 @@ const CommentManage = () => {
     <div className="container pb-5" data-aos="fade-up">
       <h1 className="mt-4">Comment Manage</h1>
       <div className="mt-3 d-lg-flex justify-content-end">
-        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-admin"} />
       </div>
 
       {/* Display success msg */}
@@ -104,7 +107,7 @@ const CommentManage = () => {
             {comments
               .filter((comment) =>
                 articles
-                  .filter((article) => article.author === auth.user)
+                  .filter((article) => article.author === user?.name)
                   .map((article) => article.id)
                   .includes(comment.article_id)
               )

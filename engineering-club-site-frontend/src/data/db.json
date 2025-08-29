@@ -1,4 +1,12 @@
 {
+  "superadmin": [
+    {
+      "id": "1",
+      "name": "Admin",
+      "email": "admin@gmail.com",
+      "password": "Admin123"
+    }
+  ],
   "admin": [
     {
       "id": "1",

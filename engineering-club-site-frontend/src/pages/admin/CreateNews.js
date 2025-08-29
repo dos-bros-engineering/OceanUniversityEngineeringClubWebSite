@@ -11,8 +11,11 @@ import { useAuth } from "../../utils/AuthContext";
 const CreateNews = () => {
   UseTitleName("Create News | OCU Engineering Club");
   const navigate = useNavigate();
-  const { getNews } = useData();
+  const { getNews, admin } = useData();
   const auth = useAuth();
+
+  // Get admin attributes
+  const user = admin?.find((a) => a.email === auth.user);
 
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
@@ -68,7 +71,7 @@ const CreateNews = () => {
       img: image,
       date: new Date(),
       body: body,
-      author: auth.user,
+      author: user?.name,
       views: 0,
       publish: publish
     };
@@ -103,7 +106,7 @@ const CreateNews = () => {
             <input
               type="text"
               class="form-control"
-              placeholder="Title"
+              placeholder="Enter your news title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               onInvalid={(e) => {
@@ -147,7 +150,7 @@ const CreateNews = () => {
               )}
               <div className="d-flex justify-content-center">
                 <label for="image-upload" class="custom-image-upload">
-                  Image Upload
+                  Thumbnail Upload
                 </label>
                 <input
                   type="file"
@@ -159,7 +162,7 @@ const CreateNews = () => {
               {errorImage && (
                 <label className="text-danger d-flex justify-content-center">
                   <i className="bi bi-exclamation-circle-fill me-1"></i> Please
-                  select an image!
+                  select a news thumbnail image!
                 </label>
               )}
             </div>

@@ -30,7 +30,7 @@ const AdminLogin = () => {
     const user = admin.find((a) => a.email === email && a.password === password);
 
     if (user) {
-      auth.login(user?.name);
+      auth.login(user?.email);
       navigate(redirectedPath, { replace: true });
     } else {
       setInvalidUser(true);

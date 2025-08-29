@@ -1,14 +1,18 @@
 import UseTitleName from "../../utils/UseTitleName";
-import PostGrid from "../../components/admin/post grid/PostGrid";
+import PostGrid from "../../components/post grid/AdminPostGrid";
 import { useData } from "../../utils/DataContext";
-import Search from "../../components/admin/search/Search";
+import Search from "../../components/search/AdminSearch";
 import { useEffect, useState } from "react";
-import PostGrid2 from "../../components/admin/post grid/PostGrid2";
+import PaginationPostGrid from "../../components/post grid/PaginationPostGrid";
 import { useAuth } from "../../utils/AuthContext";
+import "./Admin.css";
 
 const AdminHome = () => {
-  const { articles, news } = useData();
+  const { articles, news, admin } = useData();
   const auth = useAuth();
+
+  // Get admin attributes
+  const user = admin?.find((a) => a.email === auth.user);
 
   const [postResults, setPostResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,22 +21,22 @@ const AdminHome = () => {
   searchTerm.trim() === "" ? UseTitleName("Home | OCU Engineering Club") : UseTitleName("'" + searchTerm + "'" + " | OCU Engineering Club");
 
   // Filter posts
-  const latestNewsPosts = news.filter(post => post.publish && post.author === auth.user).sort(
+  const latestNewsPosts = news.filter(post => post.publish && post.author === user?.name).sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
-  const latestArticlePosts = articles.filter(post => post.publish && post.author === auth.user).sort(
+  const latestArticlePosts = articles.filter(post => post.publish && post.author === user?.name).sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
   // Filter posts by search result
   useEffect(() => {
     if (["article", "articles"].includes(searchTerm.toLowerCase())) {
-      setPostResults(articles.filter((article) => article.author === auth.user).sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setPostResults(articles.filter((article) => article.author === user?.name).sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else if (searchTerm.toLowerCase() === "news") {
-      setPostResults(news.filter((n) => n.author === auth.user).sort((a, b) => new Date(b.date) - new Date(a.date)));
+      setPostResults(news.filter((n) => n.author === user?.name).sort((a, b) => new Date(b.date) - new Date(a.date)));
     } else {
       setPostResults([...articles, ...news]
-        .filter((post) => post.author === auth.user)
+        .filter((post) => post.author === user?.name)
         .filter((post) =>
           `${post.title} ${post.category}`.toLowerCase().includes(searchTerm.toLowerCase())
         )
@@ -43,18 +47,18 @@ const AdminHome = () => {
   return (
     <div className="container">
       <div className="row mt-4" data-aos="fade-up">
-        <h1>Welcome {auth.user}!</h1>
+        <h1>Welcome {user?.name}!</h1>
       </div>
       <div className="mt-2 d-lg-flex justify-content-end" data-aos="fade-up">
-        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-admin"} />
       </div>
       {searchTerm.trim() === "" ? (
         <div className="row my-4">
           <div className="col-lg-6" data-aos="fade-up">
-            <PostGrid posts={latestArticlePosts} category="Latest Article" />
+            <PostGrid posts={latestArticlePosts} category="Latest Article" styleType={"post-grid-admin"} />
           </div>
           <div className="col-lg-6 mt-4 mt-lg-0" data-aos="fade-up">
-            <PostGrid posts={latestNewsPosts} category="Latest News" />
+            <PostGrid posts={latestNewsPosts} category="Latest News" styleType={"post-grid-admin"} />
           </div>
         </div>
       ) : (
@@ -72,7 +76,7 @@ const AdminHome = () => {
               </div>
             )}
             <div className="my-3" data-aos="fade-up">
-              <PostGrid2 posts={postResults} />
+              <PaginationPostGrid posts={postResults} styleType={"post-grid-admin"} />
             </div>
           </div>
         </div>

@@ -4,15 +4,18 @@ import UseTitleName from "../../utils/UseTitleName";
 import FormatDate from "../../utils/FormatDate";
 import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
-import "../../components/admin/search/Search.css";
-import Search from "../../components/admin/search/Search";
+import Search from "../../components/search/AdminSearch";
 import { useAuth } from "../../utils/AuthContext";
+import "./Admin.css";
 
 const NewsManage = () => {
   UseTitleName("News Manage | OCU Engineering Club");
-  const { news, getNews } = useData();
+  const { news, getNews, admin } = useData();
   const auth = useAuth();
   const naviagate = useNavigate();
+
+  // Get admin attributes
+  const user = admin?.find((a) => a.email === auth.user);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [successMsg, setSuccessMsg] = useState(false);
@@ -51,7 +54,7 @@ const NewsManage = () => {
           </button>
         </div>
         <div className="col-lg-2 mt-2 mt-lg-0 ps-lg-0">
-          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-admin"} />
         </div>
       </div>
 
@@ -120,7 +123,7 @@ const NewsManage = () => {
           </thead>
           <tbody>
             {news
-              .filter((n) => n.author === auth.user)
+              .filter((n) => n.author === user?.name)
               .filter((n) => {
                 return searchTerm.trim() === ""
                   ? n
