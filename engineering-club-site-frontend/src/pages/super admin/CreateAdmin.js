@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 import UseTitleName from "../../utils/UseTitleName";
 import "./SuperAdmin.css";
 import { useState } from "react";
-import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
+import Axios from 'axios';
+
 
 const CreateAdmin = () => {
   UseTitleName("Create Admin | OCU Engineering Club");
   const navigate = useNavigate();
-  const { getAdmin } = useData();
+  const { admin,getAdmin } = useData();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,27 +20,25 @@ const CreateAdmin = () => {
   // Add admin
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const admin = {
+    getAdmin();
+    const data = {
+      id:admin[admin.length - 1].id,
       name: name,
       email: email,
-      password: `${name.replace(/\s+/g, '%')}123`
+      
     };
 
-    fetch(ApiRoutes.ADMIN, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(admin),
-    })
-      .then(() => {
-        getAdmin();
-        navigate("/superadmin/admin-manage");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    Axios.post('http://localhost:3001/api/addadmin', data)
+        .then(() => {
+          getAdmin();
+          navigate("/superadmin/admin-manage");
+            
+        })
+        .catch(error => {
+            console.error('axios error: ', error)
+        })
+
+    
   };
 
   return (
