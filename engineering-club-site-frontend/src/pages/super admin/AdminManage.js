@@ -1,10 +1,10 @@
 import UseTitleName from "../../utils/UseTitleName";
 import { useData } from "../../utils/DataContext";
 import { useNavigate } from "react-router-dom";
-import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
 import Search from "../../components/search/AdminSearch";
 import "./SuperAdmin.css";
+import Axios from 'axios';
 
 const AdminManage = () => {
   UseTitleName("Admin Manage | OCU Engineering Club");
@@ -16,17 +16,21 @@ const AdminManage = () => {
 
   // Delete admin
   const deleteAdmin = (id) => {
-    fetch(ApiRoutes.ADMIN + "/" + id, {
-      method: "DELETE",
-    })
-      .then(() => {
-        setSuccessMsg(true);
-        getAdmin();
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setSuccessMsg(false);
-      });
+    
+    const data = {"id":id}
+    Axios.post('http://localhost:3001/api/deleteadmin',data)
+        .then(() => {
+            setSuccessMsg(true);
+            getAdmin();
+            
+        })
+        .catch(error => {
+            console.error('axios error: ', error)
+            setSuccessMsg(false);
+          })
+
+
+    
   };
 
   return (
@@ -46,6 +50,7 @@ const AdminManage = () => {
             </span>
             <span>Add Admin</span>
           </button>
+          
         </div>
         <div className="col-lg-2 mt-2 mt-lg-0 ps-lg-0">
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-superadmin"} />
