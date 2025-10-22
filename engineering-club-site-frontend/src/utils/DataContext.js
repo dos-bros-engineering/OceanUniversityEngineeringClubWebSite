@@ -28,11 +28,11 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
       getSuperAdmin();
       getAdmin();
-      getArticle();
+      getArticles();
       getNews();
       getComment();
   }, []);
-
+  
   // Get data from APIs
   const getSuperAdmin = () => {
     axios.get(ApiRoutes.SUPERADMIN.GET)
@@ -96,7 +96,7 @@ export const DataProvider = ({ children }) => {
 
   return (
     <DataContext.Provider 
-      value={{ superadmin, admin, articles, news, comments, getSuperAdmin, getAdmin, getArticle, getNews, getComment, isPendingSuperAdmin, isPendingAdmin, isPendingArticles, 
+      value={{ articles, news, comments,superadmin, admin, getSuperAdmin, getAdmin, getArticles, getNews, getComments, isPendingSuperAdmin, isPendingAdmin, isPendingArticles, 
         isPendingNews, isPendingComments, errorSuperAdmin, errorAdmin, errorArticles, errorNews, errorComments 
       }}
     >

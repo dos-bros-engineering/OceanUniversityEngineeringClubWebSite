@@ -2,7 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import UseTitleName from "../../utils/UseTitleName";
 import "./SuperAdmin.css";
 import { useState } from "react";
-import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import axios from "axios";
 
@@ -12,7 +11,9 @@ const EditAdmin = () => {
   const { admin, getAdmin } = useData();
 
   // Check id to find the admin
+  
   const a = admin.find((article) => article.id === idSlug);
+
 
   UseTitleName(a?.name + " | OCU Engineering Club");
 
@@ -26,7 +27,8 @@ const EditAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const admin = {
+    const data = {
+      id:idSlug,
       name: name,
       email: email
     };
