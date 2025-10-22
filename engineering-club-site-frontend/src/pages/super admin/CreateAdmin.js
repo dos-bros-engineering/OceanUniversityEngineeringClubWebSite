@@ -4,6 +4,8 @@ import "./SuperAdmin.css";
 import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const CreateAdmin = () => {
   UseTitleName("Create Admin | OCU Engineering Club");
@@ -17,29 +19,24 @@ const CreateAdmin = () => {
   const [errorEmail, setErrorEmail] = useState(false);
 
   // Add admin
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const admin = {
+      id: uuidv4(),
       name: name,
       email: email,
       password: `${name.replace(/\s+/g, '%')}123`
     };
 
-    fetch(ApiRoutes.ADMIN, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(admin),
-    })
-      .then(() => {
-        getAdmin();
-        navigate("/superadmin/admin-manage");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    try {
+      await axios.post(ApiRoutes.ADMIN.CREATE, admin);
+
+      getAdmin();
+      navigate("/superadmin/admin-manage");
+    } catch(err) {
+      console.log(err.message);
+    }
   };
 
   return (

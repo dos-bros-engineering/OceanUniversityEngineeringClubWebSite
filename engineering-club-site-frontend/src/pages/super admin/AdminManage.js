@@ -5,6 +5,8 @@ import ApiRoutes from "../../api/ApiRoutes";
 import { useState } from "react";
 import Search from "../../components/search/AdminSearch";
 import "./SuperAdmin.css";
+import axios from "axios";
+import DeleteModal from "../../components/modal/DeleteModal";
 
 const AdminManage = () => {
   UseTitleName("Admin Manage | OCU Engineering Club");
@@ -15,18 +17,16 @@ const AdminManage = () => {
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Delete admin
-  const deleteAdmin = (id) => {
-    fetch(ApiRoutes.ADMIN + "/" + id, {
-      method: "DELETE",
-    })
-      .then(() => {
-        setSuccessMsg(true);
-        getAdmin();
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setSuccessMsg(false);
-      });
+  const deleteAdmin = async (id) => {
+    try {
+      await axios.delete(ApiRoutes.ADMIN.DELETE + "/" + id);
+
+      setSuccessMsg(true);
+      getAdmin();
+    } catch (err) {
+      console.log(err.message);
+      setSuccessMsg(false);
+    }
   };
 
   return (
@@ -115,11 +115,8 @@ const AdminManage = () => {
                         naviagate("/superadmin/admin-manage/" + a.id)
                       }
                     ></i>
-                    <i
-                      className="btn bi bi-trash3-fill"
-                      style={{ border: 0 }}
-                      onClick={() => deleteAdmin(a.id)}
-                    ></i>
+                    {/* Admin deletion confirmation modal */}
+                    <DeleteModal modal_title={a.name} modal_type={"Admin"} modal_button_theme={"#2200aa"} modal_id={a.id} modal_delete={deleteAdmin} />
                   </td>
                 </tr>
               ))}

@@ -4,6 +4,7 @@ import "./SuperAdmin.css";
 import { useState } from "react";
 import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
+import axios from "axios";
 
 const EditAdmin = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const EditAdmin = () => {
   const [errorEmail, setErrorEmail] = useState(false);
 
   // Update admin
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const admin = {
@@ -30,20 +31,14 @@ const EditAdmin = () => {
       email: email
     };
 
-    fetch(ApiRoutes.ADMIN + "/" + idSlug, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(admin),
-    })
-      .then(() => {
-        getAdmin();
-        navigate("/superadmin/admin-manage");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    try {
+      await axios.patch(ApiRoutes.ADMIN.PATCH + "/" + idSlug, admin)
+
+      getAdmin();
+      navigate("/superadmin/admin-manage");
+    } catch(err) {
+      console.log(err.message);
+    }
   };
 
   return (

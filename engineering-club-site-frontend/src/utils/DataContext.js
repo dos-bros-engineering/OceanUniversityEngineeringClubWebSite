@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import ApiRoutes from "../api/ApiRoutes";
+import axios from 'axios';
 
 const DataContext = createContext();
 
@@ -25,26 +26,18 @@ export const DataProvider = ({ children }) => {
   const [errorComments, setErrorComments] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
       getSuperAdmin();
       getAdmin();
       getArticle();
       getNews();
       getComment();
-    }, 1000);
   }, []);
 
   // Get data from APIs
   const getSuperAdmin = () => {
-    fetch(ApiRoutes.SUPERADMIN)
+    axios.get(ApiRoutes.SUPERADMIN.GET)
       .then((res) => {
-        if(!res.ok) {
-          throw Error("Could not fetch the data for that resource");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setSuperAdmin(data);
+        setSuperAdmin(res.data);
         setIsPendingSuperAdmin(false);
         setErrorSuperAdmin(null);
       }).catch(err => {
@@ -54,15 +47,9 @@ export const DataProvider = ({ children }) => {
   };
 
   const getAdmin = () => {
-    fetch(ApiRoutes.ADMIN)
+    axios.get(ApiRoutes.ADMIN.GET)
       .then((res) => {
-        if(!res.ok) {
-          throw Error("Could not fetch the data for that resource");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setAdmin(data);
+        setAdmin(res.data);
         setIsPendingAdmin(false);
         setErrorAdmin(null);
       }).catch(err => {
@@ -72,15 +59,9 @@ export const DataProvider = ({ children }) => {
   };
 
   const getArticle = () => {
-    fetch(ApiRoutes.ARTICLE)
+    axios.get(ApiRoutes.ARTICLE.GET)
       .then((res) => {
-        if(!res.ok) {
-          throw Error("Could not fetch the data for that resource");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setArticles(data);
+        setArticles(res.data);
         setIsPendingArticles(false);
         setErrorArticles(null);
       }).catch(err => {
@@ -90,15 +71,9 @@ export const DataProvider = ({ children }) => {
   };
 
   const getNews = () => {
-    fetch(ApiRoutes.NEWS)
+    axios.get(ApiRoutes.NEWS.GET)
       .then((res) => {
-        if(!res.ok) {
-          throw Error("Could not fetch the data for that resource");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setNews(data);
+        setNews(res.data);
         setIsPendingNews(false);
         setErrorNews(null);
       }).catch(err => {
@@ -108,15 +83,9 @@ export const DataProvider = ({ children }) => {
   };
 
   const getComment = () => {
-    fetch(ApiRoutes.COMMENT)
+    axios.get(ApiRoutes.COMMENT.GET)
       .then((res) => {
-        if(!res.ok) {
-          throw Error("Could not fetch the data for that resource");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setComments(data);
+        setComments(res.data);
         setIsPendingComments(false);
         setErrorComments(null);
       }).catch(err => {
