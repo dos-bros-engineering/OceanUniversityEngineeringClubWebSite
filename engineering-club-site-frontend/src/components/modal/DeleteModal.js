@@ -32,7 +32,10 @@ const DeleteModal = ({ modal_id, modal_title, modal_type, modal_button_theme, mo
           <Button
             className="btn btn-primary"
             style={{ backgroundColor: modal_button_theme, border: 0 }}
-            onClick={() => modal_delete(modal_id)}
+            onClick={() => {
+              modal_delete(modal_id);
+              handleClose();
+            }}
           >
             Delete
           </Button>

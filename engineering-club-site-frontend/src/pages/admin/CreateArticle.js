@@ -14,7 +14,7 @@ import axios from "axios";
 const CreateArticle = () => {
   UseTitleName("Create Article | OCU Engineering Club");
   const navigate = useNavigate();
-  const { getArticle, admin } = useData();
+  const { articles, getArticle, admin } = useData();
   const auth = useAuth();
 
   // Get admin attributes
@@ -71,20 +71,18 @@ const CreateArticle = () => {
       return;
     }
 
-    const article = {
-      id: uuidv4(),
+    const articleData = {
+      id: articles[articles.length - 1].id,
       title: title,
       category: category,
       img: image,
-      date: new Date(),
       body: body,
       author: user?.name,
-      views: 0,
       publish: publish,
     };
 
     try {
-      await axios.post(ApiRoutes.ARTICLE.CREATE, article);
+      await axios.post(ApiRoutes.ARTICLE.CREATE, articleData);
 
       getArticle();
       navigate("/admin/article-manage");

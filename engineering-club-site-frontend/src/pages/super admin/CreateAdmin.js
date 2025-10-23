@@ -10,7 +10,7 @@ import axios from "axios";
 const CreateAdmin = () => {
   UseTitleName("Create Admin | OCU Engineering Club");
   const navigate = useNavigate();
-  const { getAdmin } = useData();
+  const { admin, getAdmin } = useData();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,15 +22,14 @@ const CreateAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const admin = {
-      id: uuidv4(),
+    const adminData = {
+      id: admin[admin.length - 1].id,
       name: name,
       email: email,
-      password: `${name.replace(/\s+/g, '%')}123`
     };
 
     try {
-      await axios.post(ApiRoutes.ADMIN.CREATE, admin);
+      await axios.post(ApiRoutes.ADMIN.CREATE, adminData);
 
       getAdmin();
       navigate("/superadmin/admin-manage");

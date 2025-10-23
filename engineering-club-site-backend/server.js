@@ -6,6 +6,8 @@ const router = require('./router');
 
 require('dotenv').config();
 
+// Payload is limited to 10mb
+app.use(express.json({ limit: '10mb' }));
 
 app.use(cors());
 app.use(express.json());

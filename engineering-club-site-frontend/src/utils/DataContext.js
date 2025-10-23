@@ -37,7 +37,7 @@ export const DataProvider = ({ children }) => {
   const getSuperAdmin = () => {
     axios.get(ApiRoutes.SUPERADMIN.GET)
       .then((res) => {
-        setSuperAdmin(res.data);
+        setSuperAdmin(res.data?.response || []);
         setIsPendingSuperAdmin(false);
         setErrorSuperAdmin(null);
       }).catch(err => {
@@ -49,7 +49,7 @@ export const DataProvider = ({ children }) => {
   const getAdmin = () => {
     axios.get(ApiRoutes.ADMIN.GET)
       .then((res) => {
-        setAdmin(res.data);
+        setAdmin(res.data?.response || []);
         setIsPendingAdmin(false);
         setErrorAdmin(null);
       }).catch(err => {
@@ -61,7 +61,7 @@ export const DataProvider = ({ children }) => {
   const getArticle = () => {
     axios.get(ApiRoutes.ARTICLE.GET)
       .then((res) => {
-        setArticles(res.data);
+        setArticles(res.data?.response || []);
         setIsPendingArticles(false);
         setErrorArticles(null);
       }).catch(err => {
@@ -73,7 +73,7 @@ export const DataProvider = ({ children }) => {
   const getNews = () => {
     axios.get(ApiRoutes.NEWS.GET)
       .then((res) => {
-        setNews(res.data);
+        setNews(res.data?.response || []);
         setIsPendingNews(false);
         setErrorNews(null);
       }).catch(err => {
@@ -85,7 +85,7 @@ export const DataProvider = ({ children }) => {
   const getComment = () => {
     axios.get(ApiRoutes.COMMENT.GET)
       .then((res) => {
-        setComments(res.data);
+        setComments(res.data?.response || []);
         setIsPendingComments(false);
         setErrorComments(null);
       }).catch(err => {

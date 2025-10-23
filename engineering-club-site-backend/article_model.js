@@ -5,13 +5,14 @@ const Schema = mongoose.Schema;
 const articleSchema = new Schema({
     id: Number,
     title: String,
-    Category: String,
+    category: String,
     img: String,
     date: String,
     body: String,
     author: String,
     like: Number,
     dislike: Number,
+    views: Number,
     publish: Boolean
     
 })

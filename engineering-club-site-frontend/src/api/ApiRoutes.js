@@ -2,31 +2,31 @@ const BASE_URL = "http://localhost:3001/api";
 
 const ApiRoutes = {
     SUPERADMIN : {
-        GET: `${BASE_URL}/superadmin/get`,
-        PATCH: `${BASE_URL}/superadmin/update`
+        GET: `${BASE_URL}/superadmin`,
+        PATCH: `${BASE_URL}/updatesuperadmin`
     },
     ADMIN : {
-        GET: `${BASE_URL}/admin/get`,
-        CREATE: `${BASE_URL}/admin/create`,
-        PATCH: `${BASE_URL}/admin/update`,
-        DELETE: `${BASE_URL}/admin/delete`
+        GET: `${BASE_URL}/admin`,
+        CREATE: `${BASE_URL}/addadmin`,
+        PATCH: `${BASE_URL}/updateadmin`,
+        DELETE: `${BASE_URL}/deleteadmin`
     },
     ARTICLE : {
-        GET: `${BASE_URL}/article/get`,
-        CREATE: `${BASE_URL}/article/create`,
-        PATCH: `${BASE_URL}/article/update`,
-        DELETE: `${BASE_URL}/article/delete`
+        GET: `${BASE_URL}/articles`,
+        CREATE: `${BASE_URL}/addarticles`,
+        PATCH: `${BASE_URL}/updatearticles`,
+        DELETE: `${BASE_URL}/deletearticles`
     },
     NEWS : {
-        GET: `${BASE_URL}/news/get`,
-        CREATE: `${BASE_URL}/news/create`,
-        PATCH: `${BASE_URL}/news/update`,
-        DELETE: `${BASE_URL}/news/delete`
+        GET: `${BASE_URL}/news`,
+        CREATE: `${BASE_URL}/addnews`,
+        PATCH: `${BASE_URL}/updatenews`,
+        DELETE: `${BASE_URL}/deletenews`
     },
     COMMENT : {
-        GET: `${BASE_URL}/comment/get`,
-        CREATE: `${BASE_URL}/comment/create`,
-        DELETE: `${BASE_URL}/comment/delete`
+        GET: `${BASE_URL}/comments`,
+        CREATE: `${BASE_URL}/addcomments`,
+        DELETE: `${BASE_URL}/deletecomments`
     }
 }
 

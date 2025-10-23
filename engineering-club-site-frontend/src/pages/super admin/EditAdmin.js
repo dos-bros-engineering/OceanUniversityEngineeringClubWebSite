@@ -12,7 +12,7 @@ const EditAdmin = () => {
   const { admin, getAdmin } = useData();
 
   // Check id to find the admin
-  const a = admin.find((article) => article.id === idSlug);
+  const a = admin.find((a) => a.id === Number(idSlug));
 
   UseTitleName(a?.name + " | OCU Engineering Club");
 
