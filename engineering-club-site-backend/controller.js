@@ -84,6 +84,62 @@ const getNews = (req, res, next) => {
     })
 };
 
+const addNews = (req, res, next) => {
+    const news = new News({
+        id: Number(req.body.id) + 1,
+        title: req.body.title,
+        img: req.body.img,
+        date: new Date(),
+        body: req.body.body,
+        author: req.body.author,
+        like: Number(0),
+        dislike: Number(0),
+        views: Number(0),
+        publish: req.body.publish
+    })
+
+    news.save()
+    .then(response => {
+        res.json({response});
+    })
+    .catch(() => {
+        res.json({error: "Internal Server Error."})
+    })
+};
+
+const updateNews = (req, res, next) => {
+    const id = req.params.id;
+    const {title, img, body, like, dislike, views, publish} = req.body;
+
+    const newsExist = News.findOne({id:id});
+    if (!newsExist) {
+        return res.json({message: "The News Not Found"});
+    }
+
+    News.findOneAndUpdate({id:id},{$set:{title:title, img:img, body:body, like:like, dislike:dislike, views:views, publish:publish}})
+    .then(response => {
+        res.json({response});
+    })
+    .catch(() => {
+        res.json({error: "Internal Server Error."})
+    })
+};
+
+const deleteNews = (req, res, next) => {
+    const id = req.params.id;
+    const newsExist = News.findOne({id:id});
+    if (!newsExist) {
+      return res.json({message: "The News Not Found"});
+    }
+    News.findOneAndDelete({id:id})
+    .then(() => {
+        res.json({message: "The news has been deleted successfully."});
+    })
+    .catch(() => {
+        res.json({error: "Internal Server Error."})
+    })
+};
+
 // Comment Controller
 const getComments = (req, res, next) => {
     Comment.find()
@@ -95,9 +151,61 @@ const getComments = (req, res, next) => {
     })
 };
 
+const addComments = (req, res, next) => {
+    const comment = new Comment({
+        id: Number(req.body.id) + 1,
+        article_id: Number(req.body.article_id),
+        date: new Date(),
+        name: req.body.name,
+        email: req.body.email,
+        comment: req.body.comment
+    })
+
+    comment.save()
+    .then(response => {
+        res.json({response});
+    })
+    .catch(() => {
+        res.json({error: "Internal Server Error."})
+    })
+};
+
+const deleteComments = (req, res, next) => {
+    const id = req.params.id;
+    const commentExist = Comment.findOne({id:id});
+    if (!commentExist) {
+      return res.json({message: "The Comment Not Found"});
+    }
+    Comment.findOneAndDelete({id:id})
+    .then(() => {
+        res.json({message: "The comment has been deleted successfully."});
+    })
+    .catch(() => {
+        res.json({error: "Internal Server Error."})
+    })
+};
+
 // Superadmin Controller
 const getSuperAdmin = (req, res, next) => {
     SuperAdmin.find()
+    .then(response => {
+        res.json({response});
+    })
+    .catch(() => {
+        res.json({error: "Internal Server Error."})
+    })
+};
+
+const updateSuperAdmin = (req, res, next) => {
+    const id = req.params.id;
+    const {name, email, password} = req.body;
+
+    const superAdminExist = SuperAdmin.findOne({id:id});
+    if (!superAdminExist) {
+        return res.json({message: "The Super Admin Not Found"});
+    }
+
+    SuperAdmin.findOneAndUpdate({id:id},{$set:{name:name,email:email,password:password}})
     .then(response => {
         res.json({response});
     })
@@ -153,7 +261,6 @@ const updateAdmin = (req, res, next) => {
 
     Admin.findOneAndUpdate({id:id},{$set:{name:name,email:email,password:password}})
     .then(response => {
-        console.log("update "+{id,name,email})
         res.json({response});
     })
     .catch(() => {
@@ -181,8 +288,14 @@ exports.addArticles = addArticles;
 exports.updateArticles = updateArticles;
 exports.deleteArticles = deleteArticles;
 exports.getNews = getNews;
+exports.addNews = addNews;
+exports.updateNews = updateNews;
+exports.deleteNews = deleteNews;
 exports.getComments = getComments;
+exports.addComments = addComments;
+exports.deleteComments = deleteComments;
 exports.getSuperAdmin = getSuperAdmin;
+exports.updateSuperAdmin = updateSuperAdmin;
 exports.getAdmin = getAdmin;
 exports.addAdmin = addAdmin;
 exports.updateAdmin = updateAdmin;

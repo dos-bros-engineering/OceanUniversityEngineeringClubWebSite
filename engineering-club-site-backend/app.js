@@ -46,6 +46,24 @@ app.get('/news',(req, res)=>{
     })
 });
 
+app.post('/addnews',(req,res)=>{
+    controller.addNews(req.body,(callback) => {
+        res.send();
+    })
+});
+
+app.patch('/updatenews/:id',(req,res)=>{
+    controller.updateNews(req.params.id, req.body, (result) => {
+        res.send(result);
+    })
+});
+
+app.delete('/deletenews/:id', (req, res) => {
+  controller.deleteNews(req.params.id, (result) => {
+    res.send(result);
+  });
+});
+
 //Comments
 app.get('/comments',(req, res)=>{
     controller.getComments((req, res, next) => {
@@ -53,10 +71,28 @@ app.get('/comments',(req, res)=>{
     })
 });
 
+app.post('/addcomments',(req,res)=>{
+    controller.addComments(req.body,(callback) => {
+        res.send();
+    })
+});
+
+app.delete('/deletecomments/:id', (req, res) => {
+  controller.deleteComments(req.params.id, (result) => {
+    res.send(result);
+  });
+});
+
 //Superadmin
 app.get('/superadmin',(req, res)=>{
     controller.getSuperAdmin((req, res, next) => {
         res.send();
+    })
+});
+
+app.patch('/updatesuperadmin/:id',(req,res)=>{
+    controller.updateSuperAdmin(req.params.id, req.body, (result) => {
+        res.send(result);
     })
 });
 

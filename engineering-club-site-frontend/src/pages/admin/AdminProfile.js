@@ -51,6 +51,11 @@ const AdminProfile = () => {
 
         setSuccessMsg(true);
         getAdmin();
+
+        // Clear The Input Fields Values
+        setCurrentPW("");
+        setPassword("");
+        setConfirmPW("");
       } catch(err) {
         console.log(err.message);
         setSuccessMsg(false);

@@ -7,8 +7,6 @@ const superadminSchema = new Schema({
     name: String,
     email: String,
     password: String
-    
-    
 })
 
 const SuperAdmin = mongoose.model('SuperAdmin', superadminSchema,'superadmin');

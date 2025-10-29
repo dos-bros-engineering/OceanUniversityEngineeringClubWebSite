@@ -14,7 +14,7 @@ import axios from "axios";
 const CreateNews = () => {
   UseTitleName("Create News | OCU Engineering Club");
   const navigate = useNavigate();
-  const { getNews, admin } = useData();
+  const { news, getNews, admin } = useData();
   const auth = useAuth();
 
   // Get admin attributes
@@ -69,8 +69,8 @@ const CreateNews = () => {
       return;
     }
 
-    const news = {
-      id: uuidv4(),
+    const newsData = {
+      id: news[news.length - 1].id,
       title: title,
       img: image,
       date: new Date(),
@@ -81,7 +81,7 @@ const CreateNews = () => {
     };
 
     try {
-      await axios.post(ApiRoutes.NEWS.CREATE, news);
+      await axios.post(ApiRoutes.NEWS.CREATE, newsData);
 
       getNews();
       navigate("/admin/news-manage");

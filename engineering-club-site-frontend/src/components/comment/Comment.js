@@ -26,9 +26,8 @@ const Comment = ({ post_id }) => {
     e.preventDefault();
 
     const comment = {
-      id: uuidv4(),
+      id: comments[comments.length - 1].id,
       article_id: post_id,
-      date: new Date(),
       name: name,
       email: email,
       comment: body,

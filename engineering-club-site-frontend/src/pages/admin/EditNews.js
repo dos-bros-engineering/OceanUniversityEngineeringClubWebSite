@@ -15,7 +15,7 @@ const EditNews = () => {
   const { news, getNews } = useData();
 
   // Check id to find the post
-  const n = news.find((n) => n.id === idSlug);
+  const n = news.find((n) => n.id === Number(idSlug));
 
   UseTitleName(n?.title + " | OCU Engineering Club");
 

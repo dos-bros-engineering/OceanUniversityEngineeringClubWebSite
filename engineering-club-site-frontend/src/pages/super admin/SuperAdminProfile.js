@@ -49,10 +49,6 @@ const SuperAdminProfile = () => {
 
       setSuccessMsg(true);
       getSuperAdmin();
-
-      if(superadmin.email !== auth.user) {
-        auth.login(superadmin.email);
-      }
     } catch(err) {
       console.log(err.message);
       setSuccessMsg(false);
@@ -78,6 +74,11 @@ const SuperAdminProfile = () => {
 
         setSuccessMsg(true);
         getSuperAdmin();
+
+        // Clear The Input Fields Values
+        setCurrentPW("");
+        setPassword("");
+        setConfirmPW("");
       } catch(err) {
         console.log(err.message);
         setSuccessMsg(false);
