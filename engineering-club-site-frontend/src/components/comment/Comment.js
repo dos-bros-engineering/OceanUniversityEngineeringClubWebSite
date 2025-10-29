@@ -4,6 +4,8 @@ import { FormatRelevantTime } from "../../utils/FormatDate";
 import { useData } from "../../utils/DataContext";
 import "./Comment.css";
 import { useState } from 'react';
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const Comment = ({ post_id }) => {
   const { comments, getComment } = useData();
@@ -20,37 +22,31 @@ const Comment = ({ post_id }) => {
   const [successMsg, setSuccessMsg] = useState(false);
 
   // Add comment
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const comment = {
+      id: comments[comments.length - 1].id,
       article_id: post_id,
-      date: new Date(),
       name: name,
       email: email,
       comment: body,
     };
 
-    fetch(ApiRoutes.COMMENT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(comment),
-    })
-      .then(() => {
-        setSuccessMsg(true);
-        getComment();
+    try {
+      await axios.post(ApiRoutes.COMMENT.CREATE, comment);
 
-        // Clear The Input Fields Values
-        setName("");
-        setEmail("");
-        setBody("");
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setSuccessMsg(false);
-      });
+      setSuccessMsg(true);
+      getComment();
+
+      // Clear The Input Fields Values
+      setName("");
+      setEmail("");
+      setBody("");
+    } catch(err) {
+      console.log(err.message);
+      setSuccessMsg(false);
+    }
   };
 
   // Filter comments by relevant post id

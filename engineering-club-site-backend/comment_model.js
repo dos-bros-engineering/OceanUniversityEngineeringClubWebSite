@@ -9,7 +9,6 @@ const commentSchema = new Schema({
     name: String,
     email: String,
     comment: String,
-    
 })
 
 const Comment = mongoose.model('Comment', commentSchema,'comments');

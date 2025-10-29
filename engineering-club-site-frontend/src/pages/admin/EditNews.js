@@ -7,6 +7,7 @@ import { useData } from "../../utils/DataContext";
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import PreviewPost from "../../components/preview post/PreviewPost";
+import axios from "axios";
 
 const EditNews = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const EditNews = () => {
   const { news, getNews } = useData();
 
   // Check id to find the post
-  const n = news.find((n) => n.id === idSlug);
+  const n = news.find((n) => n.id === Number(idSlug));
 
   UseTitleName(n?.title + " | OCU Engineering Club");
 
@@ -51,7 +52,7 @@ const EditNews = () => {
   };
 
   // Update news
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Image validation
@@ -73,20 +74,14 @@ const EditNews = () => {
       publish: publish,
     };
 
-    fetch(ApiRoutes.NEWS + "/" + idSlug, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(news),
-    })
-      .then(() => {
-        getNews();
-        navigate("/admin/news-manage");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    try {
+      await axios.patch(ApiRoutes.NEWS.PATCH + "/" + idSlug, news)
+
+      getNews();
+      navigate("/admin/news-manage");
+    } catch(err) {
+      console.log(err.message);
+    }
   };
 
   return (
