@@ -8,11 +8,13 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { useAuth } from "../../utils/AuthContext";
 import PreviewPost from "../../components/preview post/PreviewPost";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const CreateNews = () => {
   UseTitleName("Create News | OCU Engineering Club");
   const navigate = useNavigate();
-  const { getNews, admin } = useData();
+  const { news, getNews, admin } = useData();
   const auth = useAuth();
 
   // Get admin attributes
@@ -52,7 +54,7 @@ const CreateNews = () => {
   };
 
   // Add news
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Image validation
@@ -67,7 +69,8 @@ const CreateNews = () => {
       return;
     }
 
-    const news = {
+    const newsData = {
+      id: news[news.length - 1].id,
       title: title,
       img: image,
       date: new Date(),
@@ -77,20 +80,14 @@ const CreateNews = () => {
       publish: publish
     };
 
-    fetch(ApiRoutes.NEWS, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(news),
-    })
-      .then(() => {
-        getNews();
-        navigate("/admin/news-manage");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    try {
+      await axios.post(ApiRoutes.NEWS.CREATE, newsData);
+
+      getNews();
+      navigate("/admin/news-manage");
+    } catch(err) {
+      console.log(err.message);
+    }
   };
 
   return (

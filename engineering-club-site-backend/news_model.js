@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { init } = require('./app');
 const Schema = mongoose.Schema;
 
-
 const newsSchema = new Schema({
     id: Number,
     title: String,
@@ -12,8 +11,8 @@ const newsSchema = new Schema({
     author: String,
     like: Number,
     dislike: Number,
+    views: Number,
     publish: Boolean
-    
 })
 
 const News = mongoose.model('News', newsSchema,'news');
