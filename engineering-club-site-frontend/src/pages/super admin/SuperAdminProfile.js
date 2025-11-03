@@ -49,6 +49,10 @@ const SuperAdminProfile = () => {
 
       setSuccessMsg(true);
       getSuperAdmin();
+
+      if(superadmin.email !== auth.user) {
+        auth.login(superadmin.email);
+      }
     } catch(err) {
       console.log(err.message);
       setSuccessMsg(false);

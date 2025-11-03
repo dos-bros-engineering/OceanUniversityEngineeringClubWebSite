@@ -7,8 +7,7 @@ import { useData } from "../../utils/DataContext";
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { useAuth } from "../../utils/AuthContext";
-import PreviewPost from "../../components/preview post/PreviewPost";
-import { v4 as uuidv4 } from "uuid";
+import PreviewPost from "../../components/modal/PreviewPost";
 import axios from "axios";
 
 const CreateNews = () => {

@@ -21,14 +21,22 @@ const DeleteModal = ({ modal_id, modal_title, modal_type, modal_button_theme, mo
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        centered
       >
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Delete {modal_type}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to delete the {modal_type.toLowerCase()} "{modal_title}"?
         </Modal.Body>
         <Modal.Footer>
+          <Button
+            className="btn btn-primary"
+            style={{ backgroundColor: "#000000ff", border: 0 }}
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
           <Button
             className="btn btn-primary"
             style={{ backgroundColor: modal_button_theme, border: 0 }}
@@ -38,13 +46,6 @@ const DeleteModal = ({ modal_id, modal_title, modal_type, modal_button_theme, mo
             }}
           >
             Delete
-          </Button>
-          <Button
-            className="btn btn-primary"
-            style={{ backgroundColor: "#000000ff", border: 0 }}
-            onClick={handleClose}
-          >
-            Cancel
           </Button>
         </Modal.Footer>
       </Modal>

@@ -1,6 +1,7 @@
+// This modal is used to preview format of articles and news before submitting.
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import "./PreviewPost.css";
+import "./Modal.css";
 import parse from "html-react-parser";
 import FormatDate from "../../utils/FormatDate";
 import "../../pages/enduser/EndUser.css";
@@ -26,7 +27,7 @@ const PreviewPost = ({ title, body, category, author }) => {
       </button>
 
       {/* Model */}
-      <Modal show={show} onHide={handleClose} className="modal-xl">
+      <Modal show={show} onHide={handleClose} centered className="modal-lg">
         <Modal.Header closeButton style={{ backgroundColor: "#def3f6" }}>
           <Modal.Title>
             <span className="me-1">
@@ -37,7 +38,7 @@ const PreviewPost = ({ title, body, category, author }) => {
         </Modal.Header>
         <Modal.Body className="modal-body">
           <h2>{title}</h2>
-          <div className="mt-1 fw-bold">
+          <div className="mt-1 fw-bold mb-4">
             <span className="me-4">
               <i className="bi bi-clock-fill"></i> {FormatDate(new Date())}
             </span>
@@ -62,16 +63,6 @@ const PreviewPost = ({ title, body, category, author }) => {
             ) : (
               <span>
                 <i className="bi bi-tags"></i> News
-              </span>
-            )}
-          </div>
-          <div className="mt-1 mb-4 fw-bold">
-            <span className="me-4">
-              <i className="bi bi-eye-fill"></i> 0
-            </span>
-            {category && (
-              <span>
-                <i className="bi bi-chat-text-fill"></i> 0
               </span>
             )}
           </div>
