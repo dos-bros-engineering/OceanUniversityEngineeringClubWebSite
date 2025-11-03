@@ -6,7 +6,7 @@ import ApiRoutes from "../../api/ApiRoutes";
 import { useData } from "../../utils/DataContext";
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
-import PreviewPost from "../../components/preview post/PreviewPost";
+import PreviewPost from "../../components/modal/PreviewPost";
 import axios from "axios";
 
 const EditNews = () => {

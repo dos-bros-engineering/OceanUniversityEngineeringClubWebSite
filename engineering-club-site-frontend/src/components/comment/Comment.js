@@ -4,7 +4,6 @@ import { FormatRelevantTime } from "../../utils/FormatDate";
 import { useData } from "../../utils/DataContext";
 import "./Comment.css";
 import { useState } from 'react';
-import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 const Comment = ({ post_id }) => {

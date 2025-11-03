@@ -1,4 +1,5 @@
-.modal-xl .modal-body {
+/* Preview post css */
+.modal-lg .modal-body {
   color: white;
   background: linear-gradient(
       rgba(0, 0, 0, 0.55),
