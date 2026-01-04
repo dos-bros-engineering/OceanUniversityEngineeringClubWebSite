@@ -1,4 +1,5 @@
 const Admin = require('../model/admin_model');
+const hash = require('./passwordHashing');
 
 const getAdmin = async (req, res, next) => {
     try {
@@ -15,9 +16,9 @@ const addAdmin = async (req, res, next) => {
         id: Number(req.body.id) + 1,
         name: req.body.name,
         email: req.body.email,
-        password: `${req.body.name.replace(/\s+/g, "%")}123`,
+        password: hash.hashPasswordBcrypt(`${req.body.name.replace(/\s+/g, "%")}123`),
       });
-
+      // console.log(admin.password)
       const emailExist = await Admin.findOne({ email: admin.email });
       if (emailExist) {
         return res.status(409).json({ message: "Email already exists." });
@@ -29,7 +30,7 @@ const addAdmin = async (req, res, next) => {
         message: "Admin added successfully.",
       });
       console.log("Admin created successfully.");
-    } catch (err) {
+    }catch (err) {
       res.status(500).json({ error: "Internal Server Error." });
     }
 };
@@ -38,7 +39,7 @@ const updateAdmin = async (req, res, next) => {
   try {
     const id = req.params.id;
     const {name, email, password} = req.body;
-
+ 
     const adminExist = await Admin.findOne({id:id});
     if (!adminExist) {
       return res.status(404).json({message: "Admin not found."});
@@ -51,7 +52,7 @@ const updateAdmin = async (req, res, next) => {
 
     const updatedAdmin = await Admin.findOneAndUpdate(
       { id: id },
-      { $set: { name: name, email: email, password: password } }
+      { $set: { name: name, email: email, password: hash.hashPasswordBcrypt(password) } }
     );
     res.status(200).json({
       response: updatedAdmin,
