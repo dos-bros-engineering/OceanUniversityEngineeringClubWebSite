@@ -1,0 +1,153 @@
+import UseTitleName from "../../utils/UseTitleName";
+import { useData } from "../../utils/DataContext";
+import FormatDate from "../../utils/FormatDate";
+import ApiRoutes from "../../api/ApiRoutes";
+import { useState } from "react";
+import Search from "../../components/search/AdminSearch";
+import { useAuth } from "../../utils/AuthContext";
+import "./Admin.css";
+import axios from "axios";
+import DeleteModal from "../../components/modal/DeleteModal";
+import { toast } from "react-toastify";
+
+const CommentManage = () => {
+  UseTitleName("Comment Manage | OCU Engineering Club");
+  const { articles, comments, getComment, admin } = useData();
+  const auth = useAuth();
+
+  // Get admin attributes
+  const user = admin?.find((a) => a.email === auth.user);
+
+  const [isPending, setIsPending] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Delete comment
+  const deleteComment = async (id) => {
+    setIsPending(true);
+    await axios
+      .delete(ApiRoutes.COMMENT.DELETE + "/" + id)
+      .then((res) => {
+        setIsPending(false);
+        setIsModalOpen(false);
+        getComment();
+        toast.success(res.data?.message);
+      })
+      .catch((error) => {
+        setIsPending(false);
+        setIsModalOpen(false);
+        toast.error(error.response.data?.message || error.response.data?.error);
+      });
+  };
+
+  return (
+    <div className="container pb-5" data-aos="fade-up">
+      <h1 className="mt-4">Comment Manage</h1>
+      <div className="mt-3 d-lg-flex justify-content-end">
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} styleType={"search-component-admin"} />
+      </div>
+
+      {/* Comments Table */}
+      <div className="row px-3 pt-3 mx-2 mt-3 rounded bg-black border border-white table-responsive">
+        <table className="table table-bordered border-black rounded overflow-hidden text-center">
+          <thead>
+            <tr>
+              <th
+                className="text-white"
+                style={{ backgroundColor: "#00798eff" }}
+                scope="col"
+              >
+                No.
+              </th>
+              <th
+                className="text-white"
+                style={{ backgroundColor: "#00798eff" }}
+                scope="col"
+              >
+                Article Title
+              </th>
+              <th
+                className="text-white"
+                style={{ backgroundColor: "#00798eff" }}
+                scope="col"
+              >
+                Date
+              </th>
+              <th
+                className="text-white"
+                style={{ backgroundColor: "#00798eff" }}
+                scope="col"
+              >
+                Name
+              </th>
+              <th
+                className="text-white"
+                style={{ backgroundColor: "#00798eff" }}
+                scope="col"
+              >
+                Email
+              </th>
+              <th
+                className="text-white"
+                style={{ backgroundColor: "#00798eff" }}
+                scope="col"
+              >
+                Comment
+              </th>
+              <th
+                className="text-white"
+                style={{ backgroundColor: "#00798eff" }}
+                scope="col"
+              >
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {comments
+              .filter((comment) =>
+                articles
+                  .filter((article) => article.admin_id === user?.id)
+                  .map((article) => article.id)
+                  .includes(comment.article_id)
+              )
+              .filter((comment) => {
+                return searchTerm.trim() === ""
+                  ? comment
+                  : comment.name.toLowerCase().includes(searchTerm) ||
+                      comment.email.toLowerCase().includes(searchTerm) ||
+                      articles
+                        .find((article) => article.id === comment.article_id)
+                        ?.title.toLowerCase()
+                        .includes(searchTerm);
+              })
+              .sort((a, b) => new Date(b.date) - new Date(a.date))
+              ?.map((comment, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td className="text-start">
+                    {
+                      articles.find(
+                        (article) => article.id === comment.article_id
+                      )?.title
+                    }
+                  </td>
+                  <td>{FormatDate(comment.date)}</td>
+                  <td className="text-start">{comment.name}</td>
+                  <td className="text-start">{comment.email}</td>
+                  <td className="text-start">{comment.comment}</td>
+                  <td>
+                    {/* Comment deletion confirmation modal */}
+                    <DeleteModal modal_title={comment.comment} modal_type={"Comment"} modal_button_theme={"#00798eff"} modal_id={comment.id} modal_delete={deleteComment} isPending={isPending} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+export default CommentManage;

@@ -1,0 +1,181 @@
+/* End User CSS Styles */
+/* Navbar */
+.header .custom-navbar {
+  background-color: #1b3754 !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo */
+.header .navbar-App-logo {
+  width: 55px;
+}
+
+.header .custom-nav .nav-link,
+.header .custom-navbar .dropdown-toggle,
+.header .custom-navbar .dropdown-item {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 22px;
+  transition: color 0.3s ease;
+}
+
+/* Dropdown */
+.header .dropdown-menu {
+  background-color: #1b3754 !important;
+  border: 2px solid #ffffff;
+}
+
+@media (max-width: 991.98px) {
+  .header .dropdown-menu {
+    border: 0px;
+    padding-top: 0px;
+  }
+}
+
+.header .dropdown-item:hover {
+  background-color: transparent !important;
+}
+
+.header .dropdown-item.active {
+  background-color: transparent !important;
+}
+
+.header .dropdown-divider {
+  background-color: #ffffff;
+  height: 2px;
+}
+
+/* Hide the default dropdown icon */
+.header .caret-down .dropdown-toggle::after {
+  display: none !important;
+}
+
+/* Hover */
+.header .custom-nav .nav-link:hover,
+.header .custom-navbar .dropdown-toggle:hover,
+.header .custom-navbar .dropdown-item:hover {
+  color: #f3777b !important;
+}
+
+/* Active */
+.header .custom-nav .nav-link.active,
+.header .custom-navbar .dropdown.active > .dropdown-toggle {
+  color: #f3777b !important;
+}
+
+ /* Navbar Toggle */
+.header .nav-toggle {
+  border-color: #f3777b;
+  color: #f99a9d;
+}
+
+.header .nav-toggle-icon {
+  color: #f3777b;
+}
+
+/* Admin CSS Styles */
+/* Navbar */
+.header-admin .custom-navbar {
+  background-color: #def3f6 !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo */
+.header-admin .navbar-App-logo {
+  width: 55px;
+}
+
+.header-admin .custom-nav .nav-link,
+.header-admin .nav-link {
+  color: #000000 !important;
+  font-weight: 700;
+  font-size: 22px;
+  transition: color 0.3s ease;
+}
+
+/* Hover */
+.header-admin .custom-nav .nav-link:hover,
+.header-admin .nav-link:hover {
+  color: #00798e !important;
+}
+
+/* Active */
+.header-admin .custom-nav .nav-link.active,
+.header-admin .custom-nav .nav-link.active {
+  color: #00798e !important;
+}
+
+/* Profile Icon  */
+.header-admin .profile-icon {
+  background: #000000;
+}
+
+.header-admin .profile-icon.active,
+.header-admin .profile-icon:hover {
+  background: #00798e;
+}
+
+ /* Navbar Toggle */
+.header-admin .nav-toggle {
+  border-color: #00798e;
+  color: #0cb7d5;
+}
+
+.header-admin .nav-toggle-icon {
+  color: #00798e;
+}
+
+/* Super Admin CSS Styles */
+/* Navbar */
+.header-superadmin .custom-navbar {
+  background-color: #64cbe1 !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo */
+.header-superadmin .navbar-App-logo {
+  width: 55px;
+}
+
+.header-superadmin .custom-nav .nav-link,
+.header-superadmin .nav-link {
+  color: #000000 !important;
+  font-weight: 700;
+  font-size: 22px;
+  transition: color 0.3s ease;
+}
+
+/* Hover */
+.header-superadmin .custom-nav .nav-link:hover,
+.header-superadmin .nav-link:hover {
+  color: #2200aa !important;
+}
+
+/* Active */
+.header-superadmin .custom-nav .nav-link.active,
+.header-superadmin .custom-nav .nav-link.active {
+  color: #2200aa !important;
+}
+
+/* Profile Icon  */
+.header-superadmin .profile-icon {
+  background: #000000;
+}
+
+.header-superadmin .profile-icon.active,
+.header-superadmin .profile-icon:hover {
+  background: #2200aa;
+}
+
+ /* Navbar Toggle */
+.header-superadmin .nav-toggle {
+  border-color: #2200aa;
+  color: #3300ff;
+}
+
+.header-superadmin .nav-toggle-icon {
+  color: #2200aa;
+}
