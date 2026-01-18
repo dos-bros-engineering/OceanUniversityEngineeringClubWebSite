@@ -14,7 +14,6 @@ const AdminHeader = () => {
   const location = useLocation();
   const { admin } = useData();
   const auth = useAuth();
-  const navigate = useNavigate();
 
   // Get admin attributes
   const user = admin?.find(
@@ -22,12 +21,6 @@ const AdminHeader = () => {
       a.email === auth.getLocalStorageWithExpiry("admin")?.[2] ||
       a.email === auth.user
   );
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/admin");
-    }
-  }, [user, navigate]);
 
   return (
     <div className="header-admin">
