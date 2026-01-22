@@ -7,9 +7,11 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink, useLocation } from "react-router-dom";
 import Search from "../search/EndUserSearch";
+import { useData } from "../../utils/DataContext";
 
 const EndUserHeader = () => {
   const location = useLocation();
+  const { category } = useData();
 
   return (
     <div className="header">
@@ -47,30 +49,31 @@ const EndUserHeader = () => {
                 }
                 id="navbarScrollingDropdown"
                 className={`me-lg-5 caret-down ${
-                  location.pathname.startsWith("/article/")
-                    ? "active"
-                    : ""
+                  location.pathname.startsWith("/article/") ? "active" : ""
                 }`}
               >
-                <NavDropdown.Item as={NavLink} to="/article/pumps">
-                  Pumps
-                </NavDropdown.Item>
-                <NavDropdown.Divider className="d-none d-lg-block" />
-                <NavDropdown.Item as={NavLink} to="/article/ship-constructions">
-                  Ship Constructions
-                </NavDropdown.Item>
-                <NavDropdown.Divider className="d-none d-lg-block" />
-                <NavDropdown.Item as={NavLink} to="/article/ship-stability">
-                  Ship Stability
-                </NavDropdown.Item>
-                <NavDropdown.Divider className="d-none d-lg-block" />
-                <NavDropdown.Item as={NavLink} to="/article/ship-type">
-                  Ship Type
-                </NavDropdown.Item>
-                <NavDropdown.Divider className="d-none d-lg-block" />
-                <NavDropdown.Item as={NavLink} to="/article/other">
-                  Other
-                </NavDropdown.Item>
+                {category?.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5).map((c, index) => (
+                  <div key={index}>
+                    {index !== 0 && (<NavDropdown.Divider className="d-none d-lg-block" />)}
+                    <NavDropdown.Item
+                      as={NavLink}
+                      to={`/article/${c.name.toLowerCase().trim().replace(/\s+/g, "-")}`}
+                    >
+                      {c.name}
+                    </NavDropdown.Item>
+                  </div>
+                ))}
+                {category?.length > 5 && (
+                  <>
+                    <NavDropdown.Divider className="d-none d-lg-block" />
+                    <NavDropdown.Item
+                      as={NavLink}
+                      to={`/article/all`}
+                    >
+                      More
+                    </NavDropdown.Item>
+                  </>
+                )}
               </NavDropdown>
             </Nav>
 

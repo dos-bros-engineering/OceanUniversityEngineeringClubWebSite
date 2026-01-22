@@ -85,7 +85,7 @@ const CreateNews = () => {
     }
 
     const formData = new FormData();
-    formData.append('id', news[news.length - 1].id);
+    formData.append('id', news.length === 0 ? 0 : news[news.length - 1].id);
     formData.append('title', title);
     formData.append('file', image);
     formData.append('body', body);

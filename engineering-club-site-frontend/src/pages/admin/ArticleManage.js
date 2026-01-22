@@ -121,7 +121,7 @@ const ArticleManage = () => {
                 style={{ backgroundColor: "#00798eff" }}
                 scope="col"
               >
-                Views
+                Reactions
               </th>
               <th
                 className="text-white"
@@ -162,8 +162,10 @@ const ArticleManage = () => {
                   <td className="text-start">{article.title}</td>
                   <td>{FormatDate(article.date)}</td>
                   <td className="text-start">{article.category}</td>
-                  <td>
-                    <i className="bi bi-eye-fill"></i> {article.views}
+                  <td className="text-start">
+                    <div><i className="bi bi-eye-fill"></i> {article.views}</div>
+                    <div><i className="bi-hand-thumbs-up-fill"></i> {article.like}</div>
+                    <div><i className="bi-hand-thumbs-down-fill"></i> {article.dislike}</div>
                   </td>
                   {article.publish ? <td>Yes</td> : <td>No</td>}
                   <td>

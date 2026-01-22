@@ -115,7 +115,7 @@ const NewsManage = () => {
                 style={{ backgroundColor: "#00798eff" }}
                 scope="col"
               >
-                Views
+                Reactions
               </th>
               <th
                 className="text-white"
@@ -154,8 +154,10 @@ const NewsManage = () => {
                   </td>
                   <td className="text-start">{n.title}</td>
                   <td>{FormatDate(n.date)}</td>
-                  <td>
-                    <i className="bi bi-eye-fill"></i> {n.views}
+                  <td className="text-start">
+                    <div><i className="bi bi-eye-fill"></i> {n.views}</div>
+                    <div><i className="bi-hand-thumbs-up-fill"></i> {n.like}</div>
+                    <div><i className="bi-hand-thumbs-down-fill"></i> {n.dislike}</div>
                   </td>
                   {n.publish ? <td>Yes</td> : <td>No</td>}
                   <td>

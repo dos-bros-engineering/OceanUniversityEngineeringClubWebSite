@@ -27,7 +27,7 @@ const Comment = ({ post_id }) => {
     setIsPending(true);
 
     const comment = {
-      id: comments[comments.length - 1].id,
+      id: comments.length === 0 ? 0 : comments[comments.length - 1].id,
       article_id: post_id,
       name: name,
       email: email,

@@ -12,18 +12,21 @@ export const DataProvider = ({ children }) => {
   const [articles, setArticles] = useState([]);
   const [news, setNews] = useState([]);
   const [comments, setComments] = useState([]);
+  const [category, setCategory] = useState([]);
 
   const [isPendingSuperAdmin, setIsPendingSuperAdmin] = useState(true);
   const [isPendingAdmin, setIsPendingAdmin] = useState(true);
   const [isPendingArticles, setIsPendingArticles] = useState(true);
   const [isPendingNews, setIsPendingNews] = useState(true);
   const [isPendingComments, setIsPendingComments] = useState(true);
+  const [isPendingCategory, setIsPendingCategory] = useState(true);
 
   const [errorSuperAdmin, setErrorSuperAdmin] = useState(null);
   const [errorAdmin, setErrorAdmin] = useState(null);
   const [errorArticles, setErrorArticles] = useState(null);
   const [errorNews, setErrorNews] = useState(null);
   const [errorComments, setErrorComments] = useState(null);
+  const [errorCategory, setErrorCategory] = useState(null);
 
   useEffect(() => {
       getSuperAdmin();
@@ -31,6 +34,7 @@ export const DataProvider = ({ children }) => {
       getArticle();
       getNews();
       getComment();
+      getCategory();
   }, []);
 
   // Get data from APIs
@@ -94,10 +98,22 @@ export const DataProvider = ({ children }) => {
       });
   };
 
+  const getCategory = () => {
+    axios.get(ApiRoutes.CATEGORY.GET)
+      .then((res) => {
+        setCategory(res.data?.response || []);
+        setIsPendingCategory(false);
+        setErrorCategory(null);
+      }).catch(err => {
+        setIsPendingCategory(false);
+        setErrorCategory(err.message);
+      });
+  };
+
   return (
     <DataContext.Provider 
-      value={{ superadmin, admin, articles, news, comments, getSuperAdmin, getAdmin, getArticle, getNews, getComment, isPendingSuperAdmin, isPendingAdmin, isPendingArticles, 
-        isPendingNews, isPendingComments, errorSuperAdmin, errorAdmin, errorArticles, errorNews, errorComments 
+      value={{ superadmin, admin, articles, news, comments, category, getSuperAdmin, getAdmin, getArticle, getNews, getComment, getCategory, isPendingSuperAdmin, isPendingAdmin, isPendingArticles, 
+        isPendingNews, isPendingComments, isPendingCategory, errorSuperAdmin, errorAdmin, errorArticles, errorNews, errorComments, errorCategory 
       }}
     >
       {children}
