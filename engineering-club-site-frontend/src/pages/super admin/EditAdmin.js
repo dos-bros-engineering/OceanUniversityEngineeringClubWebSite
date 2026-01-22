@@ -30,13 +30,13 @@ const EditAdmin = () => {
     e.preventDefault();
     setIsPending(true);
 
-    const admin = {
+    const adminData = {
       name: name,
       email: email
     };
 
     await axios
-      .patch(ApiRoutes.ADMIN.PATCH + "/" + idSlug, admin)
+      .patch(ApiRoutes.ADMIN.PATCH + "/" + idSlug, adminData)
       .then((res) => {
         getAdmin();
         navigate("/superadmin/admin-manage");

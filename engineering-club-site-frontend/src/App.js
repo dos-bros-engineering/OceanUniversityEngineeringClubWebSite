@@ -4,11 +4,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Home from "./pages/enduser/Home";
 import News from "./pages/enduser/News";
-import Pumps from "./pages/enduser/Pumps";
-import ShipConstructions from "./pages/enduser/ShipConstructions";
-import ShipStability from "./pages/enduser/ShipStability";
-import ShipType from "./pages/enduser/ShipType";
-import Other from "./pages/enduser/Other";
 import NotFound from "./pages/enduser/NotFound";
 import { useEffect } from "react";
 import ScrollAnimation from "./utils/ScrollAnimation";
@@ -43,6 +38,10 @@ import AdminManage from "./pages/super admin/AdminManage";
 import CreateAdmin from "./pages/super admin/CreateAdmin";
 import EditAdmin from "./pages/super admin/EditAdmin";
 import SuperAdminProfile from "./pages/super admin/SuperAdminProfile";
+import CategoryManage from "./pages/super admin/CategoryManage";
+import CreateCategory from "./pages/super admin/CreateCategory";
+import EditCategory from "./pages/super admin/EditCategory";
+import ArticleCategory from "./pages/enduser/ArticleCategory";
 
 const App = () => {
   // Scroll Animation
@@ -62,11 +61,7 @@ const App = () => {
 
               {/* Nested Inside Article Layout */}
               <Route element={<ArticleLayout />}>
-                <Route path="/article/pumps" element={<Pumps />} />
-                <Route path="/article/ship-constructions" element={<ShipConstructions />} />
-                <Route path="/article/ship-stability" element={<ShipStability />} />
-                <Route path="/article/ship-type" element={<ShipType />} />
-                <Route path="/article/other" element={<Other />} />
+                <Route path="/article/:categorySlug" element={<ArticleCategory />} />
               </Route>
 
               <Route path="/news/:titleSlug" element={<Post />} />
@@ -80,7 +75,6 @@ const App = () => {
 
             {/* Admin Routes */}
             {/* Routes before login  */}
-            
             <Route element={<AuthAdminLayout />}>
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
@@ -113,8 +107,11 @@ const App = () => {
                 <Route path="/superadmin/article-manage" element={<SuperAdminArticleManage />} />
                 <Route path="/superadmin/news-manage" element={<SuperAdminNewsManage />} />
                 <Route path="/superadmin/admin-manage" element={<AdminManage />} />
+                <Route path="/superadmin/category-manage" element={<CategoryManage />} />
                 <Route path="/superadmin/create-admin" element={<CreateAdmin />} />
+                <Route path="/superadmin/create-category" element={<CreateCategory />} />
                 <Route path="/superadmin/admin-manage/:idSlug" element={<EditAdmin />} />
+                <Route path="/superadmin/category-manage/:idSlug" element={<EditCategory />} />
                 <Route path="/superadmin/profile" element={<SuperAdminProfile />} />
               </Route>
             </Route>

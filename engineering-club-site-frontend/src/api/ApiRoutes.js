@@ -28,6 +28,12 @@ const ApiRoutes = {
         CREATE: `${BASE_URL}/addcomments`,
         DELETE: `${BASE_URL}/deletecomments`
     },
+    CATEGORY : {
+        GET: `${BASE_URL}/category`,
+        CREATE: `${BASE_URL}/addcategory`,
+        PATCH: `${BASE_URL}/updatecategory`,
+        DELETE: `${BASE_URL}/deletecategory`
+    },
     AUTHADMIN : {
         POST:`${BASE_URL}/authadmin`
     },
