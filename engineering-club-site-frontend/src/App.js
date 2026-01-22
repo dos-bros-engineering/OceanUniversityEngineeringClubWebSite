@@ -42,6 +42,7 @@ import CategoryManage from "./pages/super admin/CategoryManage";
 import CreateCategory from "./pages/super admin/CreateCategory";
 import EditCategory from "./pages/super admin/EditCategory";
 import ArticleCategory from "./pages/enduser/ArticleCategory";
+import AllArticles from "./pages/enduser/AllArticles";
 
 const App = () => {
   // Scroll Animation
@@ -61,6 +62,7 @@ const App = () => {
 
               {/* Nested Inside Article Layout */}
               <Route element={<ArticleLayout />}>
+                <Route path="/article/all" element={<AllArticles />} />
                 <Route path="/article/:categorySlug" element={<ArticleCategory />} />
               </Route>
 

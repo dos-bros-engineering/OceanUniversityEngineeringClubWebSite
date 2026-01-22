@@ -17,7 +17,7 @@ const addCategory = async (req, res, next) => {
       });
       
       const categoryExist = await Category.findOne({ name: category.name });
-      if (categoryExist) {
+      if (categoryExist || category.name.toLowerCase() === "all") {
         return res.status(409).json({ message: "Category already exists." });
       }
 
@@ -43,7 +43,7 @@ const updateCategory = async (req, res, next) => {
     }
 
     const categoryNameExist = await Category.findOne({ name: name });
-    if (categoryNameExist && (categoryExist.name !== name)) {
+    if ((categoryNameExist && (categoryExist.name !== name)) || name.toLowerCase() === "all") {
       return res.status(409).json({ message: "Category already exists." });
     }
 

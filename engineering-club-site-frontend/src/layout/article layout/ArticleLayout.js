@@ -2,13 +2,14 @@
 import "./ArticleLayout.css";
 import Slider from "../../components/slider/Slider";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { Outlet, NavLink, useParams } from "react-router-dom";
+import { Outlet, NavLink, useParams, useLocation } from "react-router-dom";
 import { useData } from "../../utils/DataContext";
 import NotFound from "../../pages/enduser/NotFound";
 
 const Article = () => {
   const { articles, category } = useData();
   const { categorySlug } = useParams();
+  const location = useLocation();
 
   const c = category.find((c) => c.name.toLowerCase().trim().replace(/\s+/g, "-") === categorySlug)
 
@@ -19,7 +20,7 @@ const Article = () => {
 
   return (
     <>
-      {c ? (
+      {c || location.pathname === "/article/all" ? (
         <div className="container article-layout">
           <div className="row">
             <div className="my-3 p-0" data-aos="fade-up">
@@ -29,12 +30,20 @@ const Article = () => {
           <div className="row my-4">
             <div className="col-lg-8" data-aos="fade-up">
               {/* Tab Menu */}
-              <nav className="d-none d-lg-block">
+              <nav>
                 <div
                   className="nav nav-tabs fs-5 tab-menu-divider"
                   id="nav-tab"
                   role="tablist"
                 >
+                  <NavLink
+                    to={`/article/all`}
+                    className={({ isActive }) =>
+                      `nav-link fw-bold ${isActive ? "active" : "text-white"}`
+                    }
+                  >
+                    All
+                  </NavLink>
                   {category.map((c, index) => (
                     <NavLink
                       key={index}
@@ -49,7 +58,7 @@ const Article = () => {
                 </div>
                 <div className="divider pt-1 bg-white rounded-end"></div>
               </nav>
-              <div className="my-lg-4">
+              <div className="mt-4 my-lg-4">
                 <Outlet />
               </div>
             </div>
