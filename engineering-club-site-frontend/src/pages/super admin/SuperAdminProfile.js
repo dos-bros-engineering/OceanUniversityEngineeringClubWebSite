@@ -208,7 +208,7 @@ const SuperAdminProfile = () => {
             type="submit"
             className="btn btn-primary"
             style={{ backgroundColor: "#000000ff", border: 0, width: 125 }}
-            disabled={isPendingDetails}
+            disabled={isPendingDetails || (name === user?.name && email === user?.email)}
           >
             {isPendingDetails ? (
               <>

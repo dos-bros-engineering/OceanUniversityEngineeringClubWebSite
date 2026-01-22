@@ -83,7 +83,7 @@ const EditCategory = () => {
               type="submit"
               className="btn btn-primary"
               style={{ backgroundColor: "#2200aa", border: 0, width: 125 }}
-              disabled={isPending}
+              disabled={isPending || name === c?.name}
             >
               {isPending ? (
                 <>

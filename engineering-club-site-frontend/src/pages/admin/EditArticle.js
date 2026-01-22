@@ -227,7 +227,7 @@ const EditArticle = () => {
               type="submit"
               className="btn btn-primary"
               style={{ backgroundColor: "#00798eff", border: 0, width: 125 }}
-              disabled={isPending}
+              disabled={isPending || (title === article?.title && categoryType === article?.category && image === article?.img && publish === article?.publish && body === article?.body)}
             >
               {isPending ? (
                 <>

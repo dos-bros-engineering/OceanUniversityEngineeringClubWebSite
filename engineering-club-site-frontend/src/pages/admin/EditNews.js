@@ -214,7 +214,7 @@ const EditNews = () => {
               type="submit"
               className="btn btn-primary"
               style={{ backgroundColor: "#00798eff", border: 0, width: 125 }}
-              disabled={isPending}
+              disabled={isPending || (title === n?.title && image === n?.img && publish === n?.publish && body === n?.body)}
             >
               {isPending ? (
                 <>
