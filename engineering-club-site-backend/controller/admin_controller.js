@@ -50,10 +50,11 @@ const updateAdmin = async (req, res, next) => {
       return res.status(409).json({ message: "Email already exists." });
     }
 
-    if (hash.verifyPasswordBcrypt(currentPassword, adminExist.password)) {
+    //for updated of admins by superadmin
+    if (!currentPassword) {
       const updatedAdmin = await Admin.findOneAndUpdate(
         { id: id },
-        { $set: { name: name, email: email, password: hash.hashPasswordBcrypt(password) } }
+        { $set: { name: name, email: email } }
       );
       res.status(200).json({
         response: updatedAdmin,
@@ -62,11 +63,25 @@ const updateAdmin = async (req, res, next) => {
       });
       console.log("Admin updated successfully.");
     } else {
-      res.status(200).json({
-        response: false,
-        message: "Current Password Not Matching.",
-        user_message: "Current Password Not Matching."
-      });
+      //admin update only done by admin
+      if (hash.verifyPasswordBcrypt(currentPassword, adminExist.password)) {
+        const updatedAdmin = await Admin.findOneAndUpdate(
+          { id: id },
+          { $set: { name: name, email: email, password: hash.hashPasswordBcrypt(password) } }
+        );
+        res.status(200).json({
+          response: updatedAdmin,
+          message: "Admin updated successfully.",
+          user_message: "Profile updated successfully."
+        });
+        console.log("Admin updated successfully.");
+      } else {
+        res.status(200).json({
+          response: false,
+          message: "Current Password Not Matching.",
+          user_message: "Current Password Not Matching."
+        });
+      }
     }
 
   } catch (error) {
