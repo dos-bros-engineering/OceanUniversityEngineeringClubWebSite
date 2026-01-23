@@ -12,10 +12,12 @@ const SuperAdminForgotPassword = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
+  const [isPending, setIsPending] = useState(false);
   const [errorEmail, setErrorEmail] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPending(true);
 
     await axios
       .post(ApiRoutes.SUPERADMIN.FORGOT, { email: email })
@@ -24,6 +26,8 @@ const SuperAdminForgotPassword = () => {
       })
       .catch((error) => {
         toast.error(error.response.data?.message || error.response.data?.error);
+      }).finally(() => {
+        setIsPending(false);
       });
   };
 
@@ -35,7 +39,7 @@ const SuperAdminForgotPassword = () => {
       </div>
 
       {/* Forgot password form */}
-      <form className="mt-2">
+      <form className="mt-2" onSubmit={handleSubmit}>
         <div className="form-group">
           <input
             type="email"
@@ -65,8 +69,18 @@ const SuperAdminForgotPassword = () => {
             type="submit"
             className="btn btn-primary"
             style={{ backgroundColor: "#000000ff", border: 0, width: 200 }}
+            disabled={isPending}
           >
-            Request Reset Link
+            {isPending ? (
+              <>
+                <span className="me-1">
+                  <i className="spinner-border spinner-border-sm"></i>
+                </span>
+                <span>Requesting...</span>
+              </>
+            ) : (
+              "Request Reset Link"
+            )}
           </button>
         </div>
         <div className="d-flex justify-content-center mt-2">

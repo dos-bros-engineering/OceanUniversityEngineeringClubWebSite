@@ -1,5 +1,7 @@
 const SuperAdmin = require('../model/superadmin_model');
+const { sendMail } = require('./mail');
 const hash = require('./passwordHashing');
+const reset_password_template = require('./reset_password_template');
 
 // Superadmin Controller
 const getSuperAdmin = async (req, res, next) => {
@@ -62,7 +64,7 @@ const updateSuperAdmin = async (req, res, next) => {
 const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
-    const superAdminExist = await Admin.findOne({ email: email });
+    const superAdminExist = await SuperAdmin.findOne({ email: email });
     if (!superAdminExist) {
       return res.status(404).json({ message: "Email not found." });
     }
