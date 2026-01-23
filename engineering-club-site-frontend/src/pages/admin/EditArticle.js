@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 const EditArticle = () => {
   const navigate = useNavigate();
   const { idSlug } = useParams();
-  const { articles, getArticle, admin } = useData();
+  const { articles, getArticle, admin, category } = useData();
 
   // Check id to find the post
   const article = articles.find((article) => article.id === Number(idSlug));
@@ -23,7 +23,7 @@ const EditArticle = () => {
   const [isPending, setIsPending] = useState(false);
 
   const [title, setTitle] = useState(article?.title);
-  const [category, setCategory] = useState(article?.category);
+  const [categoryType, setCategoryType] = useState(article?.category);
   const [image, setImage] = useState(article?.img);
   const [publish, setPublish] = useState(article?.publish);
   const [body, setBody] = useState(article?.body);
@@ -77,7 +77,7 @@ const EditArticle = () => {
 
     const formData = new FormData();
     formData.append('title', title);
-    formData.append('category', category);
+    formData.append('category', categoryType);
     formData.append('file', image);
     formData.append('body', body);
     formData.append('publish', publish);
@@ -133,14 +133,12 @@ const EditArticle = () => {
           <div className="form-group my-3">
             <select
               className="form-select"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              value={categoryType}
+              onChange={(e) => setCategoryType(e.target.value)}
             >
-              <option value="Pumps">Pumps</option>
-              <option value="Ship Constructions">Ship Constructions</option>
-              <option value="Ship Stability">Ship Stability</option>
-              <option value="Ship Type">Ship Type</option>
-              <option value="Other">Other</option>
+              {category.map((c, index) => (
+                <option key={index} value={c.name}>{c.name}</option>
+              ))}
             </select>
           </div>
           {/* Image Upload Area */}
@@ -224,12 +222,12 @@ const EditArticle = () => {
               Cancel
             </button>
             {/* Preview the post using a button */}
-            <PreviewPost title={title ? title : "Article Title"} body={body} category={category} author={admin.find((a) => a?.id === article?.admin_id)?.name} />
+            <PreviewPost title={title ? title : "Article Title"} body={body} category={categoryType} author={admin.find((a) => a?.id === article?.admin_id)?.name} />
             <button
               type="submit"
               className="btn btn-primary"
               style={{ backgroundColor: "#00798eff", border: 0, width: 125 }}
-              disabled={isPending}
+              disabled={isPending || (title === article?.title && categoryType === article?.category && image === article?.img && publish === article?.publish && body === article?.body)}
             >
               {isPending ? (
                 <>

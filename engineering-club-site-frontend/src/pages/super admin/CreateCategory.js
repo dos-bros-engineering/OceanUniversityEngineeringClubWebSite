@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UseTitleName from "../../utils/UseTitleName";
 import "./SuperAdmin.css";
 import { useState } from "react";
@@ -7,39 +7,30 @@ import { useData } from "../../utils/DataContext";
 import axios from "axios";
 import { toast } from 'react-toastify';
 
-const EditAdmin = () => {
+const CreateCategory = () => {
+  UseTitleName("Create Category | OCU Engineering Club");
   const navigate = useNavigate();
-  const { idSlug } = useParams();
-  const { admin, getAdmin } = useData();
-
-  // Check id to find the admin
-  const a = admin.find((a) => a.id === Number(idSlug));
-
-  UseTitleName(a?.name + " | OCU Engineering Club");
+  const { category, getCategory } = useData();
 
   const [isPending, setIsPending] = useState(false);
-
-  const [name, setName] = useState(a?.name);
-  const [email, setEmail] = useState(a?.email);
-
+  const [name, setName] = useState("");
   const [errorName, setErrorName] = useState(false);
-  const [errorEmail, setErrorEmail] = useState(false);
 
-  // Update admin
+  // Add category
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsPending(true);
 
-    const adminData = {
+    const categoryData = {
+      id: category.length === 0 ? 0 : category[category.length - 1].id,
       name: name,
-      email: email
     };
 
     await axios
-      .patch(ApiRoutes.ADMIN.PATCH + "/" + idSlug, adminData)
+      .post(ApiRoutes.CATEGORY.CREATE, categoryData)
       .then((res) => {
-        getAdmin();
-        navigate("/superadmin/admin-manage");
+        getCategory();
+        navigate("/superadmin/category-manage");
         toast.success(res.data?.message);
       })
       .catch((error) => {
@@ -51,18 +42,18 @@ const EditAdmin = () => {
   return (
     <>
       <div className="container my-4 superadmin-manage-posts" data-aos="fade-up">
-        <h1>Edit Admin</h1>
+        <h1>Create Category</h1>
 
-        {/* Edit Admin Form */}
+        {/* Add Category Form */}
         <form className="mt-3" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>
-              <i className="bi bi-person-fill"></i> Name
+              <i className="bi bi-tags-fill"></i> Category Name
             </label>
             <input
               type="text"
               className="form-control"
-              placeholder="Enter admin name"
+              placeholder="Enter category name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               onInvalid={(e) => {
@@ -75,31 +66,7 @@ const EditAdmin = () => {
             {errorName && (
               <label className="text-danger">
                 <i className="bi bi-exclamation-circle-fill"></i> Please enter
-                admin name!
-              </label>
-            )}
-          </div>
-          <div className="form-group my-3">
-            <label>
-              <i className="bi bi-envelope-fill"></i> Email Address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Enter admin email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onInvalid={(e) => {
-                e.preventDefault();
-                setErrorEmail(true);
-              }}
-              onInput={() => setErrorEmail(false)}
-              required
-            />
-            {errorEmail && (
-              <label className="text-danger">
-                <i className="bi bi-exclamation-circle-fill"></i> Please enter
-                admin email address!
+                category name!
               </label>
             )}
           </div>
@@ -108,29 +75,29 @@ const EditAdmin = () => {
               type="button"
               className="btn btn-primary me-2"
               style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
-              onClick={() => navigate("/superadmin/admin-manage")}
+              onClick={() => navigate("/superadmin/category-manage")}
             >
               Cancel
             </button>
             <button
               type="submit"
               className="btn btn-primary"
-              style={{ backgroundColor: "#2200aa", border: 0, width: 125 }}
-              disabled={isPending || (name === a?.name && email === a?.email)}
+              style={{ backgroundColor: "#2200aa", border: 0, width: 120 }}
+              disabled={isPending}
             >
               {isPending ? (
                 <>
                   <span className="me-1">
                     <i className="spinner-border spinner-border-sm"></i>
                   </span>
-                  <span>Updating...</span>
+                  <span>Adding...</span>
                 </>
               ) : (
                 <>
                   <span className="me-1">
-                    <i className="bi bi-pencil-square"></i>
+                    <i className="bi bi-plus-circle"></i>
                   </span>
-                  <span>Update</span>
+                  <span>Add</span>
                 </>
               )}
             </button>
@@ -141,4 +108,4 @@ const EditAdmin = () => {
   );
 };
 
-export default EditAdmin;
+export default CreateCategory;

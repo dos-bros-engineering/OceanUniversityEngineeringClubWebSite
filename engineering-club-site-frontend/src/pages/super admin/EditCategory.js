@@ -7,39 +7,30 @@ import { useData } from "../../utils/DataContext";
 import axios from "axios";
 import { toast } from 'react-toastify';
 
-const EditAdmin = () => {
+const EditCategory = () => {
   const navigate = useNavigate();
   const { idSlug } = useParams();
-  const { admin, getAdmin } = useData();
+  const { category, getCategory } = useData();
 
-  // Check id to find the admin
-  const a = admin.find((a) => a.id === Number(idSlug));
+  // Check id to find the category
+  const c = category.find((c) => c.id === Number(idSlug));
 
-  UseTitleName(a?.name + " | OCU Engineering Club");
+  UseTitleName(c?.name + " | OCU Engineering Club");
 
   const [isPending, setIsPending] = useState(false);
-
-  const [name, setName] = useState(a?.name);
-  const [email, setEmail] = useState(a?.email);
-
+  const [name, setName] = useState(c?.name);
   const [errorName, setErrorName] = useState(false);
-  const [errorEmail, setErrorEmail] = useState(false);
 
-  // Update admin
+  // Update category
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsPending(true);
 
-    const adminData = {
-      name: name,
-      email: email
-    };
-
     await axios
-      .patch(ApiRoutes.ADMIN.PATCH + "/" + idSlug, adminData)
+      .patch(ApiRoutes.CATEGORY.PATCH + "/" + idSlug, { name: name })
       .then((res) => {
-        getAdmin();
-        navigate("/superadmin/admin-manage");
+        getCategory();
+        navigate("/superadmin/category-manage");
         toast.success(res.data?.message);
       })
       .catch((error) => {
@@ -51,18 +42,18 @@ const EditAdmin = () => {
   return (
     <>
       <div className="container my-4 superadmin-manage-posts" data-aos="fade-up">
-        <h1>Edit Admin</h1>
+        <h1>Edit Category</h1>
 
-        {/* Edit Admin Form */}
+        {/* Edit Category Form */}
         <form className="mt-3" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>
-              <i className="bi bi-person-fill"></i> Name
+              <i className="bi bi-tags-fill"></i> Category Name
             </label>
             <input
               type="text"
               className="form-control"
-              placeholder="Enter admin name"
+              placeholder="Enter category name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               onInvalid={(e) => {
@@ -75,31 +66,7 @@ const EditAdmin = () => {
             {errorName && (
               <label className="text-danger">
                 <i className="bi bi-exclamation-circle-fill"></i> Please enter
-                admin name!
-              </label>
-            )}
-          </div>
-          <div className="form-group my-3">
-            <label>
-              <i className="bi bi-envelope-fill"></i> Email Address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Enter admin email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onInvalid={(e) => {
-                e.preventDefault();
-                setErrorEmail(true);
-              }}
-              onInput={() => setErrorEmail(false)}
-              required
-            />
-            {errorEmail && (
-              <label className="text-danger">
-                <i className="bi bi-exclamation-circle-fill"></i> Please enter
-                admin email address!
+                category name!
               </label>
             )}
           </div>
@@ -108,7 +75,7 @@ const EditAdmin = () => {
               type="button"
               className="btn btn-primary me-2"
               style={{ backgroundColor: "#000000ff", border: 0, width: 120 }}
-              onClick={() => navigate("/superadmin/admin-manage")}
+              onClick={() => navigate("/superadmin/category-manage")}
             >
               Cancel
             </button>
@@ -116,7 +83,7 @@ const EditAdmin = () => {
               type="submit"
               className="btn btn-primary"
               style={{ backgroundColor: "#2200aa", border: 0, width: 125 }}
-              disabled={isPending || (name === a?.name && email === a?.email)}
+              disabled={isPending || name === c?.name}
             >
               {isPending ? (
                 <>
@@ -141,4 +108,4 @@ const EditAdmin = () => {
   );
 };
 
-export default EditAdmin;
+export default EditCategory;

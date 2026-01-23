@@ -3,13 +3,15 @@ const BASE_URL = "http://localhost:3001/api";
 const ApiRoutes = {
     SUPERADMIN : {
         GET: `${BASE_URL}/superadmin`,
-        PATCH: `${BASE_URL}/updatesuperadmin`
+        PATCH: `${BASE_URL}/updatesuperadmin`,
+        FORGOT: `${BASE_URL}/forgotsuperadmin`
     },
     ADMIN : {
         GET: `${BASE_URL}/admin`,
         CREATE: `${BASE_URL}/addadmin`,
         PATCH: `${BASE_URL}/updateadmin`,
-        DELETE: `${BASE_URL}/deleteadmin`
+        DELETE: `${BASE_URL}/deleteadmin`,
+        FORGOT: `${BASE_URL}/forgotadmin`
     },
     ARTICLE : {
         GET: `${BASE_URL}/articles`,
@@ -27,6 +29,12 @@ const ApiRoutes = {
         GET: `${BASE_URL}/comments`,
         CREATE: `${BASE_URL}/addcomments`,
         DELETE: `${BASE_URL}/deletecomments`
+    },
+    CATEGORY : {
+        GET: `${BASE_URL}/category`,
+        CREATE: `${BASE_URL}/addcategory`,
+        PATCH: `${BASE_URL}/updatecategory`,
+        DELETE: `${BASE_URL}/deletecategory`
     },
     AUTHADMIN : {
         POST:`${BASE_URL}/authadmin`

@@ -98,7 +98,7 @@ const SuperAdminArticleManage = () => {
                 style={{ backgroundColor: "#2200aa" }}
                 scope="col"
               >
-                Views
+                Reactions
               </th>
               <th
                 className="text-white"
@@ -139,8 +139,10 @@ const SuperAdminArticleManage = () => {
                   <td>{FormatDate(article.date)}</td>
                   <td className="text-start">{article.category}</td>
                   <td className="text-start">{admin.find((a) => a?.id === article.admin_id)?.name || "-"}</td>
-                  <td>
-                    <i className="bi bi-eye-fill"></i> {article.views}
+                  <td className="text-start">
+                    <div><i className="bi bi-eye-fill"></i> {article.views}</div>
+                    <div><i className="bi-hand-thumbs-up-fill"></i> {article.like}</div>
+                    <div><i className="bi-hand-thumbs-down-fill"></i> {article.dislike}</div>
                   </td>
                   {article.publish ? <td>Yes</td> : <td>No</td>}
                   <td>

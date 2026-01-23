@@ -26,7 +26,7 @@ const CreateAdmin = () => {
     setIsPending(true);
 
     const adminData = {
-      id: admin[admin.length - 1].id,
+      id: admin.length === 0 ? 0 : admin[admin.length - 1].id,
       name: name,
       email: email,
     };

@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 const CreateArticle = () => {
   UseTitleName("Create Article | OCU Engineering Club");
   const navigate = useNavigate();
-  const { articles, getArticle, admin } = useData();
+  const { articles, getArticle, admin, category } = useData();
   const auth = useAuth();
 
   // Get admin attributes
@@ -33,7 +33,7 @@ const CreateArticle = () => {
   const [isPending, setIsPending] = useState(false);
 
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [categoryType, setCategoryType] = useState("");
   const [image, setImage] = useState("");
   const [publish, setPublish] = useState("");
   const [body, setBody] = useState("");
@@ -87,9 +87,9 @@ const CreateArticle = () => {
     }
 
     const formData = new FormData();
-    formData.append('id', articles[articles.length - 1].id);
+    formData.append('id', articles.length === 0 ? 0 : articles[articles.length - 1].id);
     formData.append('title', title);
-    formData.append('category', category);
+    formData.append('category', categoryType);
     formData.append('file', image);
     formData.append('body', body);
     formData.append('admin_id', user?.id);
@@ -146,8 +146,8 @@ const CreateArticle = () => {
           <div className="form-group my-3">
             <select
               className="form-select"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              value={categoryType}
+              onChange={(e) => setCategoryType(e.target.value)}
               onInvalid={(e) => {
                 e.preventDefault();
                 setErrorCategory(true);
@@ -158,11 +158,9 @@ const CreateArticle = () => {
               <option value="" selected hidden>
                 --- Select Article Category ---
               </option>
-              <option value="Pumps">Pumps</option>
-              <option value="Ship Constructions">Ship Constructions</option>
-              <option value="Ship Stability">Ship Stability</option>
-              <option value="Ship Type">Ship Type</option>
-              <option value="Other">Other</option>
+              {category.map((c, index) => (
+                <option key={index} value={c.name}>{c.name}</option>
+              ))}
             </select>
             {errorCategory && (
               <label className="text-danger">
@@ -273,7 +271,7 @@ const CreateArticle = () => {
             <PreviewPost
               title={title ? title : "Article Title"}
               body={body}
-              category={category ? category : "Article"}
+              category={categoryType ? categoryType : "Article"}
               author={user?.name}
             />
             <button

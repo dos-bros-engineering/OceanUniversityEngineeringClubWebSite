@@ -7,7 +7,7 @@ import ErrorAnimation from "../utils/animation/ErrorAnimation";
 import { useData } from "../utils/DataContext";
 
 const EndUserLayout = () => {
-  const { isPendingSuperAdmin, isPendingAdmin, isPendingArticles, isPendingNews, isPendingComments, errorSuperAdmin, errorAdmin, errorArticles, errorNews, errorComments } = useData();
+  const { isPendingSuperAdmin, isPendingAdmin, isPendingArticles, isPendingNews, isPendingComments, isPendingCategory, errorSuperAdmin, errorAdmin, errorArticles, errorNews, errorComments, errorCategory } = useData();
 
   return (
     <div className="Enduser-App">
@@ -17,7 +17,7 @@ const EndUserLayout = () => {
       </header>
 
       {/* The animation shown after an error occurs */}
-      {(errorSuperAdmin || errorAdmin || errorArticles || errorNews || errorComments) && (
+      {(errorSuperAdmin || errorAdmin || errorArticles || errorNews || errorComments || errorCategory) && (
         <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
           <ErrorAnimation />
           <h4>Something went wrong!</h4>
@@ -25,7 +25,7 @@ const EndUserLayout = () => {
       )}
 
       {/* The animation shown before fetching data */}
-      {(isPendingSuperAdmin || isPendingAdmin || isPendingArticles || isPendingNews || isPendingComments) && (
+      {(isPendingSuperAdmin || isPendingAdmin || isPendingArticles || isPendingNews || isPendingComments || isPendingCategory) && (
         <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
           <LoaderAnimation />
           <h4 className="mt-3">Loading...</h4>
@@ -33,7 +33,7 @@ const EndUserLayout = () => {
       )}
 
       {/* page */}
-      {(!errorSuperAdmin && !errorAdmin && !errorArticles && !errorNews && !errorComments) && (!isPendingSuperAdmin && !isPendingAdmin && !isPendingArticles && !isPendingNews && !isPendingComments) && (
+      {(!errorSuperAdmin && !errorAdmin && !errorArticles && !errorNews && !errorComments && !errorCategory) && (!isPendingSuperAdmin && !isPendingAdmin && !isPendingArticles && !isPendingNews && !isPendingComments && !isPendingCategory) && (
         <main className="min-vh-100">
           <Outlet />
         </main>
