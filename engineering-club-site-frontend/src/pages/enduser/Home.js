@@ -5,7 +5,6 @@ import Slider from "../../components/slider/Slider";
 import "./EndUser.css";
 
 const Home = () => {
-  
   const { articles, news, category } = useData();
 
   // Filter posts by category
