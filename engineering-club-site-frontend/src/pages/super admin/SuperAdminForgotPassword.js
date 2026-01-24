@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import OTP from "../../components/modal/OTP";
 
 const SuperAdminForgotPassword = () => {
-  UseTitleName("Forgot Password | OCU Engineering Club");
+  UseTitleName("Forgot Password");
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
