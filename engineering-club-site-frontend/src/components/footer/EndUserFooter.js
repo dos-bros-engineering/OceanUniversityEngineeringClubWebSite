@@ -7,13 +7,16 @@ import Row from "react-bootstrap/Row";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useData } from "../../utils/DataContext";
 
 const EndUserFooter = () => {
   {
     /* To get the current year*/
   }
   const currentYear = new Date().getFullYear();
+  const { category } = useData();
+  const location = useLocation();
 
   return (
     <div className="footer">
@@ -37,34 +40,36 @@ const EndUserFooter = () => {
                 <NavDropdown
                   title={
                     <span>
-                      Article <i className="bi bi-caret-down-fill fs-6"></i>
+                      Article <i className="bi bi-caret-up-fill fs-6"></i>
                     </span>
                   }
+                  id="navbarScrollingDropdown"
                   drop="up"
-                  className="me-lg-5 caret-down"
+                  className={`me-lg-5 caret-down ${location.pathname.startsWith("/article/") ? "active" : ""
+                    }`}
                 >
-                  <NavDropdown.Item as={NavLink} to="/article/pumps">
-                    Pumps
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item
-                    as={NavLink}
-                    to="/article/ship-constructions"
-                  >
-                    Ship Constructions
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item as={NavLink} to="/article/ship-stability">
-                    Ship Stability
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item as={NavLink} to="/article/ship-type">
-                    Ship Type
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item as={NavLink} to="/article/other">
-                    Other
-                  </NavDropdown.Item>
+                  {category?.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5).map((c, index) => (
+                    <div key={index}>
+                      {index !== 0 && (<NavDropdown.Divider className="d-none d-lg-block" />)}
+                      <NavDropdown.Item
+                        as={NavLink}
+                        to={`/article/${c.name.toLowerCase().trim().replace(/\s+/g, "-")}`}
+                      >
+                        {c.name}
+                      </NavDropdown.Item>
+                    </div>
+                  ))}
+                  {category?.length > 5 && (
+                    <>
+                      <NavDropdown.Divider className="d-none d-lg-block" />
+                      <NavDropdown.Item
+                        as={NavLink}
+                        to={`/article/all`}
+                      >
+                        More
+                      </NavDropdown.Item>
+                    </>
+                  )}
                 </NavDropdown>
               </Nav>
             </Navbar>
@@ -73,16 +78,16 @@ const EndUserFooter = () => {
             <div className="contact-us-text text-white">Contact Us</div>
             <div className="mt-2">
               <a
-                href="https://www.facebook.com/p/Engineering-Innovation-Club-Ocean-University-of-Sri-Lanka-100054277611108/"
+                href="https://web.facebook.com/profile.php?id=61572480272289"
                 target="_blank"
               >
                 <i className="bi bi-facebook fs-3 text-white me-5"></i>
               </a>
-              <a href="https://www.instagram.com/eic_ocu/" target="_blank">
+              <a href="https://www.instagram.com/oce_club?igsh=MW40ZjF5NmNmYXhx" target="_blank">
                 <i className="bi bi-instagram fs-3 text-white me-5"></i>
               </a>
               <a
-                href="https://lk.linkedin.com/company/engineering-innovation-club-ocean-university-of-sri-lanka"
+                href="https://www.linkedin.com/company/oceanography-club-ocean-university-of-sri-lanka/"
                 target="_blank"
               >
                 <i className="bi bi-linkedin fs-3 text-white"></i>
@@ -93,7 +98,7 @@ const EndUserFooter = () => {
         <Row>
           <div className="text-center text-white mb-1 fst-italic footer-text mt-3 mt-lg-0">
             <div>© {currentYear} - All Rights Reserved</div>
-            <div>Design & Development by <a style={{color: "#ffffff"}} href="https://www.linkedin.com/in/diniduatapattu/" target="_blank">Dinidu Atapattu</a> & <a style={{color: "#ffffff"}} href="https://www.linkedin.com/in/lahiru-madhuka/" target="_blank">Lahiru Madhuka</a></div>
+            <div>Design & Development by <a style={{ color: "#ffffff" }} href="https://www.linkedin.com/in/diniduatapattu/" target="_blank">Dinidu Atapattu</a> & <a style={{ color: "#ffffff" }} href="https://www.linkedin.com/in/lahiru-madhuka/" target="_blank">Lahiru Madhuka</a></div>
           </div>
         </Row>
       </Container>

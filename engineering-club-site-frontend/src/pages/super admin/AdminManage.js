@@ -100,8 +100,8 @@ const AdminManage = () => {
               .filter((a) => {
                 return searchTerm.trim() === ""
                   ? a
-                  : a.name.toLowerCase().includes(searchTerm) ||
-                      a.email.toLowerCase().includes(searchTerm);
+                  : a.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      a.email.toLowerCase().includes(searchTerm.toLowerCase());
               })
               ?.map((a, index) => (
                 <tr key={index}>

@@ -121,8 +121,10 @@ const SuperAdminArticleManage = () => {
               .filter((article) => {
                 return searchTerm.trim() === ""
                   ? article
-                  : article.title.toLowerCase().includes(searchTerm) ||
-                      article.category.toLowerCase().includes(searchTerm);
+                  : article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      article.category.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      admin.find((a) => a?.id === article.admin_id)?.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      (article.publish === true ? "yes" : "no").includes(searchTerm.toLowerCase());
               })
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               ?.map((article, index) => (
