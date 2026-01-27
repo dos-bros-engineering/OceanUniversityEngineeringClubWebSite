@@ -8,12 +8,12 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
+import { useData } from "../../utils/DataContext";
 
 const EndUserFooter = () => {
-  {
-    /* To get the current year*/
-  }
+  // To get the current year
   const currentYear = new Date().getFullYear();
+  const { category } = useData();
 
   return (
     <div className="footer">
@@ -37,34 +37,36 @@ const EndUserFooter = () => {
                 <NavDropdown
                   title={
                     <span>
-                      Article <i className="bi bi-caret-down-fill fs-6"></i>
+                      Article <i className="bi bi-caret-up-fill fs-6"></i>
                     </span>
                   }
                   drop="up"
                   className="me-lg-5 caret-down"
                 >
-                  <NavDropdown.Item as={NavLink} to="/article/pumps">
-                    Pumps
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item
-                    as={NavLink}
-                    to="/article/ship-constructions"
-                  >
-                    Ship Constructions
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item as={NavLink} to="/article/ship-stability">
-                    Ship Stability
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item as={NavLink} to="/article/ship-type">
-                    Ship Type
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider className="d-none d-lg-block" />
-                  <NavDropdown.Item as={NavLink} to="/article/other">
-                    Other
-                  </NavDropdown.Item>
+                  {category
+                    ?.sort((a, b) => a.name.localeCompare(b.name))
+                    .slice(0, 5)
+                    .map((c, index) => (
+                      <div key={index}>
+                        {index !== 0 && (
+                          <NavDropdown.Divider className="d-none d-lg-block" />
+                        )}
+                        <NavDropdown.Item
+                          as={NavLink}
+                          to={`/article/${c.name.toLowerCase().trim().replace(/\s+/g, "-")}`}
+                        >
+                          {c.name}
+                        </NavDropdown.Item>
+                      </div>
+                    ))}
+                  {category?.length > 5 && (
+                    <>
+                      <NavDropdown.Divider className="d-none d-lg-block" />
+                      <NavDropdown.Item as={NavLink} to={`/article/all`}>
+                        More
+                      </NavDropdown.Item>
+                    </>
+                  )}
                 </NavDropdown>
               </Nav>
             </Navbar>
@@ -93,7 +95,24 @@ const EndUserFooter = () => {
         <Row>
           <div className="text-center text-white mb-1 fst-italic footer-text mt-3 mt-lg-0">
             <div>© {currentYear} - All Rights Reserved</div>
-            <div>Design & Development by <a style={{color: "#ffffff"}} href="https://www.linkedin.com/in/diniduatapattu/" target="_blank">Dinidu Atapattu</a> & <a style={{color: "#ffffff"}} href="https://www.linkedin.com/in/lahiru-madhuka/" target="_blank">Lahiru Madhuka</a></div>
+            <div>
+              Design & Development by{" "}
+              <a
+                style={{ color: "#ffffff" }}
+                href="https://www.linkedin.com/in/diniduatapattu/"
+                target="_blank"
+              >
+                Dinidu Atapattu
+              </a>{" "}
+              &{" "}
+              <a
+                style={{ color: "#ffffff" }}
+                href="https://www.linkedin.com/in/lahiru-madhuka/"
+                target="_blank"
+              >
+                Lahiru Madhuka
+              </a>
+            </div>
           </div>
         </Row>
       </Container>
