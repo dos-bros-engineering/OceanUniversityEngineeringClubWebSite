@@ -1,4 +1,11 @@
 /* Rich text editor's HTML view */
+.rich-text-display,
+.post-layout-heading {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
 .rich-text-display img {
   width: 100%;
   border-radius: 5px;
