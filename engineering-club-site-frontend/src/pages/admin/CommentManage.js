@@ -128,12 +128,12 @@ const CommentManage = () => {
               .filter((comment) => {
                 return searchTerm.trim() === ""
                   ? comment
-                  : comment.name.toLowerCase().includes(searchTerm) ||
-                  comment.email.toLowerCase().includes(searchTerm) ||
+                  : comment.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  comment.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                   articles
                     .find((article) => article.id === comment.article_id)
                     ?.title.toLowerCase()
-                    .includes(searchTerm);
+                    .includes(searchTerm.toLowerCase());
               })
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               ?.map((comment, index) => (

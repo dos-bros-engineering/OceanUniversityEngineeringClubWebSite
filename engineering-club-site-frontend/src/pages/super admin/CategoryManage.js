@@ -93,7 +93,7 @@ const CategoryManage = () => {
               .filter((c) => {
                 return searchTerm.trim() === ""
                   ? c
-                  : c.name.toLowerCase().includes(searchTerm);
+                  : c.name.toLowerCase().includes(searchTerm.toLowerCase());
               })
               ?.map((c, index) => (
                 <tr key={index}>

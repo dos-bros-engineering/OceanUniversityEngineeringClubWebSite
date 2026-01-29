@@ -139,7 +139,8 @@ const NewsManage = () => {
               .filter((n) => {
                 return searchTerm.trim() === ""
                   ? n
-                  : n.title.toLowerCase().includes(searchTerm);
+                  : n.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  (n.publish === true ? "yes" : "no").includes(searchTerm.toLowerCase());
               })
               .sort((a, b) => new Date(b.date) - new Date(a.date))
               ?.map((n, index) => (
